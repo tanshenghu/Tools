@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html class="bgf0">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="tanshenghu|tanshenghu@163.com">
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>海淘宝 - 用户操作步骤演示</title>
+	<style type="text/css">
+	/* alipay iconfont */
+	@font-face {
+	  font-family: "rei";
+	  src: url("https://i.alipayobjects.com/common/fonts/rei.eot?20130423"); /* IE9 */
+	  src: url("https://i.alipayobjects.com/common/fonts/rei.eot?20130423#iefix") format("embedded-opentype"), /* IE6-IE8 */
+	  url("https://i.alipayobjects.com/common/fonts/rei.woff?20130423") format("woff"), /* chrome 6+、firefox 3.6+、Safari5.1+、Opera 11+ */
+	  url("https://i.alipayobjects.com/common/fonts/rei.ttf?20130423")  format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+	    url("https://i.alipayobjects.com/common/fonts/rei.svg?20130423#rei") format("svg"); /* iOS 4.1- */
+	}
+	.iconfont {
+	  font-family:"rei";
+	  font-style: normal;
+	  font-weight: normal;
+	  cursor: default;
+	  -webkit-font-smoothing: antialiased;
+	}
+	*{margin:0;padding:0;}
+	body{font:14px/1.5 'Microsoft Yahei',\5FAE\8F6F\96C5\9ED1,arial;padding-bottom:70px;}ul,ol{list-style:none;}
+	img{border:none;}
+	a{text-decoration:none;}
+	.bgf0{background-color:#f0f0f0;}
+	.bgImg{background:url(https://i.alipayobjects.com/i/ecmng/png/201407/35bWR9XvJX.png) left top;}
+	/* 用户登陆界面 */
+	.ui-button{border-radius:2px;display:inline-block;font-size:14px;cursor:pointer;font-weight:700;font-family:inherit;}
+	.ui-button-lorange{background-color:#f57403;border:1px solid #d66500;color:white;}
+	.ui-button-lorange:hover{background-color:#fb8318;}
+	.login_wrap{position:absolute;left:50%;top:50%;width:470px;height:88px;margin-left:-235px;margin-top:-44px;color:#333;}
+	.login_wrap h3{font-size:20px;margin-bottom:15px;font-weight:normal;}
+	.login_wrap .userPwd{font-size:14px;padding:0 5px;width:305px;border-color:#787878 #bebebe #bebebe #bebebe;border-width:1px;border-style:solid;height:35px;line-height:35px;box-shadow:0 2px 2px 0 #bebebe inset;color:#333;vertical-align:middle;}
+	.login_wrap .ui-button{margin-left:10px;height:38px;vertical-align:middle;width:130px;}
+	.loginTip{color:#ff4400;margin-top:3px;display:none;}.loginTip i{vertical-align:middle;}.loginTip span{padding-left:3px;vertical-align:middle;}
+	/* Index */
+	.Index{text-align:center;}
+	.header .checkWZ ul li,.header .nav,.header .nav dd{background:url(https://i.alipayobjects.com/i/ecmng/png/201408/3AgEa3zEYv.png) no-repeat;_background:url(https://i.alipayobjects.com/i/ecmng/gif/201408/3AgEa3vUlx.gif) no-repeat;}
+	.header{height:132px;position:relative;margin-bottom:10px;}
+	.header .checkWZ{width:305px;height:68px;position:absolute;left:50%;top:0;margin-left:-152.5px;}
+	.header .checkWZ ul li{float:left;width:152px;height:68px;cursor:pointer;font-size:20px;text-align:center;line-height:57px;color:#4b4b54;}
+	.header .checkWZ ul .TabPay{background-position:-258px -76px;}
+	.header .checkWZ ul li.TabPay.active{background-position:-258px -3px;color:white;}
+	.header .checkWZ ul .TabOrder{background-position:-412px -3px;}
+	.header .checkWZ ul li.TabOrder.active{background-position:-412px -76px;color:white;}
+	.header .nav{height:50px;background-position:-5px -153px;position:absolute;left:0;bottom:0;width:100%;border-radius:5px;}
+	.header .nav dd{width:12px;height:20px;float:left;background-position:-230px -118px;margin-top:19px;}	
+	.header .nav dt a{display:block;padding:0 7px;line-height:50px;white-space:nowrap;color:white;font-size:14px;font-family:'Microsoft Yahei',\5FAE\8F6F\96C5\9ED1,\9ED1\4F53;}
+	.header .nav dt.current a{color:#fe7000;}
+	.gotobackLink{display:block;width:96px;height:18px;overflow:hidden;position:absolute;right:5px;top:40px;z-index:100;color:white;}
+	.gotobackLink .ico{background:url(https://i.alipayobjects.com/i/ecmng/png/201407/36MWYM6QaV.png) no-repeat left 1px;display:inline-block;width:22px;height:22px;overflow:hidden;vertical-align:middle;}
+	.gotobackLink span{vertical-align:middle;}
+
+	.payFlow_wrap .header .nav dt{padding:0 5px;float:left;}
+	.payFlow_wrap .header dl{}
+	.orderFlow_wrap .header .nav dt{padding:0 50px;float:left;}
+	.orderFlow_wrap .header dl{padding-left:150px;}
+
+	.ImgBox img{border-radius:5px;}
+
+	.flow_wrap{width:930px;margin:0 auto;position:relative;}
+	.prevBtn,.nextBtn{position:absolute;top:350px;/*top:50%;margin-top:-30px;*/background:url(https://i.alipayobjects.com/i/ecmng/png/201407/35aPBKUruB.png) no-repeat;width:60px;height:60px;cursor:pointer;overflow:hidden;}
+	.prevBtn{background-position:-4px -3px;left:-105px;}
+	.nextBtn{background-position:-70px -3px;right:-105px;}
+	</style>
+	<script charset="utf-8" id="seajsnode" onerror="window.monitor && monitor.lost && monitor.lost(this.src)" src="https://a.alipayobjects.com/??seajs/seajs/2.2.0/sea.js,seajs/seajs-combo/1.0.0/seajs-combo.js,seajs/seajs-style/1.0.2/seajs-style.js,seajs/seajs-log/1.0.0/seajs-log.js,jquery/jquery/1.7.2/jquery.js,gallery/json/1.0.3/json.js,alipay/request/1.0.5/request.js"></script>
+	<script>
+	seajs.config({
+	  alias: {
+		'$': 'jquery/jquery/1.7.2/jquery',
+		'$-debug': 'jquery/jquery/1.7.2/jquery',
+		'jquery': 'jquery/jquery/1.7.2/jquery',
+		'jquery-debug': 'jquery/jquery/1.7.2/jquery-debug',
+		'seajs-debug': 'seajs/seajs-debug/1.1.1/seajs-debug'
+	  },
+	  vars: {
+		locale: 'zh-cn'
+	  }
+	});
+	</script>
+</head>
+
+<body>
+	<!-- 用户 登陆界面 -->
+	<div class="login_wrap">
+		<div>
+			<h3>Please input password to enter GlobalBuy DEMO</h3>
+			<input type="password" class="userPwd" placeholder="Password" /><input type="button" class="ui-button ui-button-lorange" value="Enter" />
+			<p class="loginTip"><i class="iconfont" title="出错">&#xF045;</i><span></span></p>
+		</div>
+	</div>
+	<!-- 引导 首页 -->
+	<div class="Index" style="display:none">
+		<img src="https://i.alipayobjects.com/i/ecmng/jpg/201408/3AfnorxHg5.jpg" usemap="#IndexMap" class="Img" />
+        <map name="IndexMap">
+        	<area class="jq-L" shape="rect" coords="257,406,465,461" href="javascript:;">
+            <area class="jq-R" shape="rect" coords="465,406,673,461" href="javascript:;">
+        </map>
+	</div>
+	<!-- 主体部分 -->
+	<div class="flow_wrap" style="display:none">
+		<a href="javascript:;" class="gotobackLink"><label class="ico"></label><span>Home</span></a>
+		<!-- 购物支付 -->
+		<div class="payFlow_wrap section">
+			<div class="header">
+				<div class="checkWZ">
+					<ul>
+						<li class="TabPay active">Checkout</li>
+						<li class="TabOrder">View Order</li>
+					</ul>
+				</div>
+				<div class="nav">
+					<dl>
+						<dt class="current"><a href="javascript:;">CHOOSE PRODUCT</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">ADD TO CART</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">SIGN IN</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">ORDER DETAILS</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">PAYMENT</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">PLACE ORDER</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">SUCCESS</a></dt>
+					</dl>
+				</div>
+			</div>
+			<div class="ImgBox">
+				<img src="https://i.alipayobjects.com/i/ecmng/jpg/201407/39BEqdPlH3.jpg" usemap="#MainMap" data-area='{"coords":["728,499,860,524","780,561,813,574"],"goto":["fBox,1","fBox,2"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/jpg/201407/3966bgqhSP.jpg" usemap="#MainMap" style="display:none;" data-area='{"coords":["62,271,290,300"],"goto":["fBox,2"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/png/201407/39CTSlxm61.png" usemap="#MainMap" style="display:none;" data-area='{"coords":["656,408,871,450"],"goto":["fBox,3"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/png/201408/39XI5rVD4P.png" usemap="#MainMap" style="display:none;" data-area='{"coords":["670,948,850,990"],"goto":["fBox,4"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/png/201407/39CYfnnPwz.png" usemap="#MainMap" style="display:none;" data-area='{"coords":["80,530,151,559"],"goto":["fBox,5"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/jpg/201407/360s4y1otZ.jpg" usemap="#MainMap" style="display:none;" data-area='{"coords":["204,149,250,167"],"goto":["fBox,6"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/png/201408/3Ag0xFIaBR.png" usemap="#MainMap" style="display:none;" />
+			</div>
+		</div>
+		<!-- 订单查看 -->
+		<div class="orderFlow_wrap section" style="display:none">
+			<div class="header">
+				<div class="checkWZ">
+					<ul>
+						<li class="TabPay">Checkout</li>
+						<li class="TabOrder active">View Order</li>
+					</ul>
+				</div>
+				<div class="nav">
+					<dl>
+						<dt class="current"><a href="javascript:;">SIGN IN</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">TRANSACITON LISTS</a></dt>
+						<dd></dd>
+						<dt><a href="javascript:;">VIEW ORDER DETAILS</a></dt>
+					</dl>
+				</div>
+			</div>
+			<div class="ImgBox">
+				<img src="https://i.alipayobjects.com/i/ecmng/jpg/201407/360s8HXGib.jpg" usemap="#MainMap" data-area='{"coords":["625,212,771,241"],"goto":["fBox,1"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/png/201407/39CTSlyOrF.png" usemap="#MainMap" style="display:none" data-area='{"coords":["782,421,840,440"],"goto":["fBox,2"]}' />
+				<img src="https://i.alipayobjects.com/i/ecmng/jpg/201407/39BEqdVofF.jpg" usemap="#MainMap" style="display:none" />
+			</div>
+		</div>
+		<map name="MainMap"></map>
+		<label class="prevBtn" title="上一张" style="display:none"></label>
+	    <label class="nextBtn" title="下一张"></label>
+	</div>
+	<script type="text/javascript">
+	// fBox,N  fBox默认指向当前元素的父级框
+	seajs.use(['$'], function(jq){
+		var _PWD 	= 'alipayglobalbuy';
+
+		var html 	= jq('html'),
+			MainMap = jq('[name="MainMap"]'),
+			fWrap   = jq('.flow_wrap'),
+			prevBtn = fWrap.find('.prevBtn'),
+			nextBtn = fWrap.find('.nextBtn'),
+			userPwd = jq('.login_wrap .userPwd'),
+			userSub = jq('.login_wrap .ui-button-lorange'),
+			loginTip= jq('.login_wrap .loginTip');
+		/* 做一些初始化DOM元素的操作 */
+		jq('.payFlow_wrap .nav dt').each(function(i, ele){
+			jq(ele).data('area','fBox,'+i);
+		});
+		jq('.orderFlow_wrap .nav dt').each(function(i, ele){
+			jq(ele).data('area','fBox,'+i);
+		});
+		// 防止图片托拽操作
+		jq('img').on('mousedown mouseup', function(ev){
+			ev.preventDefault();
+		});
+
+
+		/* 定位跳转img显示 方法 */
+		var showCurImg = function( box, index ){
+			var _box 	= (box instanceof jQuery) ? box : jq(box),// 容器：目前分为两个即，购物支付与订单查询两个
+				_index  = parseInt(index);// 当前容器下第N张图片显示
+
+			var curImg  = _box.find('.ImgBox img').eq(_index),
+				ImgData = typeof curImg.data('area') == 'object' ? curImg.data('area') : jq.parseJSON( curImg.data('area') );
+
+			if ( ImgData ){
+				var areaMap = ImgData.coords,
+					goTo 	= ImgData.goto;
+
+				var NewAreaObj;
+				MainMap.empty();
+
+				jq.each(areaMap, function(key, val){
+					var gotoArr = goTo[key].split(',');
+
+					NewAreaObj = jq('<area shape="rect" coords="'+val+'" href="javascript:;">');
+
+					// 新创建的热区添加事件操作
+					NewAreaObj.on('click', function(){
+						
+						var visBox = fWrap.find('.section:visible');
+							nav    = visBox.find('.nav dt');
+
+							nav.eq( parseInt(gotoArr[1]) ).trigger('click');
+
+					});
+
+					MainMap.append( NewAreaObj );
+				});	
+
+			}	
+
+			_box.show().siblings('.section').hide();
+			curImg.show().siblings('img').hide();	
+		};
+
+
+		/* 引导首页操作 */
+		jq('.Index area').on('click',function(){
+			html.addClass('bgImg');
+			jq('.Index').hide().next('.flow_wrap').show();
+
+			if ( jq(this).hasClass('jq-L') ){
+				showCurImg('.payFlow_wrap', 0);
+			}else{
+				showCurImg('.orderFlow_wrap', 0);
+			}
+			
+			
+		});
+
+
+		/* 顶部导航 "购物支付、订单查询" 切换 */	
+		jq('.checkWZ li').on('click', function(){
+			var thisObj = jq(this);
+			if ( thisObj.hasClass('TabPay') ){
+				jq('.payFlow_wrap').show().next('.orderFlow_wrap').hide().end().find('.nav dt.current').trigger('click');
+			}else{
+				jq('.payFlow_wrap').hide().next('.orderFlow_wrap').show().find('.nav dt.current').trigger('click');
+			};
+			
+		});
+		/* 导航菜单项 切换 */
+		jq('.nav dt').on('click', function(){
+			var thisObj = jq(this),
+				objData = thisObj.data('area').split(',');
+
+			var fBoxObj = null;
+			if( objData[0]=='fBox' ){
+				var visBox = fWrap.find('.section:visible');
+				if ( !thisObj.closest( visBox ) ) throw '没找到指定父级元素';
+				fBoxObj = visBox;
+			}else{
+				fBoxObj = jq( objData[0] );
+			}
+
+			showCurImg( fBoxObj, objData[1] );
+			thisObj.addClass('current').siblings('dt').removeClass('current');
+
+			/* 首页与尾页 隐藏按钮 */
+			var _cur;
+			if ( thisObj.closest('.payFlow_wrap').length ){
+				_cur = thisObj.parent().find('.current').index('.payFlow_wrap .nav dt');
+			}else if( thisObj.closest('.orderFlow_wrap').length ){
+				_cur = thisObj.parent().find('.current').index('.orderFlow_wrap .nav dt');
+			}
+
+			if ( _cur==0 ){
+				prevBtn.hide();
+				nextBtn.show();
+			}else if ( _cur >= thisObj.siblings('dt').length ){
+				nextBtn.hide();
+				prevBtn.show();
+			}else{
+				prevBtn.show();
+				nextBtn.show();
+			}
+			
+		});
+		/* 左右箭头 上下张 操作 */
+		prevBtn.on('click', function(){
+			var visBox  = fWrap.find('.section:visible'),
+				nav 	= visBox.find('.nav dt.current');
+
+			var inow = visBox.hasClass('payFlow_wrap') ? '.payFlow_wrap .nav dt' : '.orderFlow_wrap .nav dt';	
+
+			if ( !nav.prevAll('dt').length ) return;
+
+			visBox.find('.nav dt').eq( nav.index(inow)-1 ).trigger('click');
+
+		});
+		nextBtn.on('click', function(){
+			var visBox  = fWrap.find('.section:visible'),
+				nav 	= visBox.find('.nav dt.current');
+
+			var inow = visBox.hasClass('payFlow_wrap') ? '.payFlow_wrap .nav dt' : '.orderFlow_wrap .nav dt';
+				
+			if ( !nav.nextAll('dt').length ) return;
+
+			visBox.find('.nav dt').eq( nav.index(inow)+1 ).trigger('click');
+
+		});
+
+		/* 返回封面 */
+		jq('.gotobackLink').on('click', function(){
+			jq('.Index').show();
+			fWrap.hide();
+			html.removeClass('bgImg');
+		});
+
+		/* 用户登陆验证 */
+		userSub.on('click', function(){
+			if ( userPwd.val() === '' ){
+				userPwd.focus();
+				loginTip.show().find('span').html('Please input password to enter GlobalBuy DEMO');
+			}else if ( userPwd.val() === _PWD ){
+				loginTip.hide().find('span').html('');
+				jq('.login_wrap').hide().next('.Index').show();
+			}else{
+				userPwd.select();
+				loginTip.show().find('span').html('wrong password');
+			}
+		});
+		userPwd.on('keydown', function(ev){
+			if ( ev.keyCode==13 ){
+				userSub.trigger('click');
+			}
+		}).on('focus', function(){
+			loginTip.hide().find('span').html('');
+		}).focus();
+
+		/* 窗口滚动 左右按钮跟随 */
+		/*jq(window).on('scroll', function(){
+			
+			var winH 	 = document.documentElement.clientHeight,
+				scrH 	 = document.documentElement.scrollTop || document.body.scrollTop,
+				btnhalfH = prevBtn.height()*0.5;
+
+			prevBtn.add(nextBtn).css( 'top', (winH*0.5 - btnhalfH + scrH)+'px' );	
+
+		});*/
+		
+				
+	});
+	</script>
+</body>
+</html>
