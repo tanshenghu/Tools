@@ -1,8 +1,7 @@
-var str = '123123';
-var name = 'tsh';
-var arr = new Array();
-arr[0] = 'hello world';
-
-// 开始学习git了，呵呵...
-
-谭生虎 tanshenghu
+window.onload = function(){
+	var arr = [];
+	for(var i=0; i<100; i++){
+	arr.push(i);
+	}
+	alert( arr.join('|') );
+};
