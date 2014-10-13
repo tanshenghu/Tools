@@ -21,10 +21,9 @@ JS Document
 	tsh.offsetWidth = function(){return document.documentElement.scrollWidth || document.body.scrollWidth;};
 	tsh.scrollHeight = function(){return document.documentElement.scrollTop || document.body.scrollTop;};
 	tsh.scrollWidth = function(){return document.documentElement.scrollLeft || document.body.scrollLeft;};
-	tsh.Resolution = function(Options){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
-		var result='',X = window.screen.width,Y = window.screen.height;
-		Options=='x'?result=X:Options=='y'?result=Y:result=X+'×'+Y;
-		return result;
+	tsh.Resolution = function( Options ){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
+		var X = window.screen.width,Y = window.screen.height;
+		return Options=='x' ? X : Options=='y' ? Y : X+'×'+Y;
 	};
 	tsh.checkIE = (!+[1,]);
 	tsh.browserMsg = window.navigator.userAgent.toLowerCase();
