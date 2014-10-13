@@ -18,7 +18,47 @@ JS Document
 		if ( console && console.log )
 			console.log( str );
 	};
+	/* 
+		所有方法的备注说明，将更好的让开发者熟练运用所有方法
+	*/
+	tsh.remark = function( key ){
 		
+		var key = key ? eval('this.'+key) : this;
+		var result = '',
+			length = 0,
+			fnlen  = 0;
+		
+		key || this.log( '该对象不存在！' );
+		for(var i in key){
+			
+			length++;
+			if( typeof key[i] === 'function' ){
+				fnlen++;
+				this.log( 'function => ' + i );
+			}else if( typeof key[i] === 'string' ){
+				this.log( 'string => ' + i );
+			}else{
+				this.log( 'object => ' + i );
+			}	
+			
+		}
+		
+		this.log( '共查找到 '+length+' 个对象，其中方法对象 '+fnlen+' 个' );
+		
+	};
+	/*
+		示例
+	*/
+	tsh.remark.demo = function( key ){
+		if ( !key ) return;
+
+		$.getJSON('http://www.tanshenghu.com/code/tsh_js.php?callback=?', 'key='+key, function(data){
+			data = data.toString();
+			tsh.log( data );
+		});
+		
+	};
+
 	/*  获取form表单字段 提交至后端 parameter
 	
 		参数格式{form:"#form", selector:".myInput", way:true, Encode:escape}
@@ -113,7 +153,7 @@ JS Document
 				getVal    = [],
 				decoll    = arguments[2];
 
-			form = common.isjQ( form );
+			form = $( form );
 
 			form.find('[name="'+checkName+'"]').each(function(i, ele){
 				var thisObj = $(ele),
