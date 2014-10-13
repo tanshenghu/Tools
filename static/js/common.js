@@ -12,8 +12,57 @@ JS Document
 (function($){
 	var tsh   = {},
 		fnTsh = {};
-	
-	// log 方法
+	/*
+		针对客户端信息捕获
+	*/
+	tsh.clientWidth = function(){return document.documentElement.clientWidth;};
+	tsh.clientHeight = function(){return document.documentElement.clientHeight;};
+	tsh.offsetHeight = function(){return document.documentElement.scrollHeight || document.body.scrollHeight;};
+	tsh.offsetWidth = function(){return document.documentElement.scrollWidth || document.body.scrollWidth;};
+	tsh.scrollHeight = function(){return document.documentElement.scrollTop || document.body.scrollTop;};
+	tsh.scrollWidth = function(){return document.documentElement.scrollLeft || document.body.scrollLeft;};
+	tsh.Resolution = function(Options){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
+		var result='',X = window.screen.width,Y = window.screen.height;
+		Options=='x'?result=X:Options=='y'?result=Y:result=X+'×'+Y;
+		return result;
+	};
+	tsh.checkIE = (!+[1,]);
+	tsh.browserMsg = window.navigator.userAgent.toLowerCase();
+	tsh.IEDocMode = document.documentMode;
+	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
+	tsh.setcookies = function(key, val){
+		var saveCookieStr='',setOutTime=arguments[2],saveDay;
+		saveCookieStr = key+'='+escape(val);
+		if (setOutTime!=undefined)
+		{
+			setOutTime = parseFloat(setOutTime);
+			saveDay = new Date();
+			saveDay.setDate(saveDay.getDate()+setOutTime);
+			saveCookieStr = saveCookieStr + '; expires='+saveDay.toGMTString();
+		}
+		document.cookie = saveCookieStr+'; path=/';
+	};
+	tsh.getcookies = function( key ){
+		var CookStr = document.cookie;
+		CookArr = CookStr.split('; ');
+		for(var i in CookArr)
+		{
+			if (CookArr[i].split('=')[0]==key)
+			{
+				return unescape(CookArr[i].split('=')[1]);
+			}
+		}
+	};
+	tsh.delcookies = function( key ){
+		var keyVal = '',saveDay;
+		saveDay = new Date('1970/01/05');
+		saveDay.setDate(saveDay.getDate());
+		document.cookie = key+'='+keyVal+'; expires='+saveDay.toGMTString()+'; path=/';
+	};
+
+	/*
+		 log 方法
+	*/
 	tsh.log = function( str ){
 		if ( console && console.log )
 			console.log( str );
@@ -35,11 +84,11 @@ JS Document
 			if( typeof key[i] === 'function' ){
 				fnlen++;
 				this.log( 'function => ' + i );
-			}else if( typeof key[i] === 'string' ){
-				this.log( 'string => ' + i );
+			}else if( isNaN( key[i] ) ){
+				this.log( 'number => ' + i );
 			}else{
-				this.log( 'object => ' + i );
-			}	
+				this.log( typeof key[i] + ' => ' + i );
+			}
 			
 		}
 		
@@ -47,7 +96,7 @@ JS Document
 		
 	};
 	/*
-		示例
+		方法参数调用 示例
 	*/
 	tsh.remark.demo = function( key ){
 		if ( !key ) return;
@@ -147,7 +196,9 @@ JS Document
 			return resultParam;
 		
 	};
-	// 考虑到 如：兴趣、爱好之类 checkbox同name属性，最终需要组合成数组对象
+	/*
+		 考虑到 如：兴趣、爱好之类 checkbox同name属性，最终需要组合成数组对象
+	*/
 	tsh.Get_form_param.Get_checkbox = function(form, checkName){
 			var resultObj = {},
 				getVal    = [],
@@ -179,9 +230,14 @@ JS Document
 			return resultObj;
 	};
 	/*
-		
+		在jq中dom对象下挂接
 	*/
-	
+	/*
+		节点操作
+	*/
+	fnTsh.getComputedStyle = function( curCN ){
+		return this.currentStyle ? this.currentStyle[curCN] : getComputedStyle(this,null)[curCN];
+	};
 	// 接口 绑定至jquery下面
 	$.fn.tsh = fnTsh;
 	$.tsh = tsh;
