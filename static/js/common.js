@@ -62,9 +62,13 @@ JS Document
 	/*
 		 log 方法
 	*/
-	tsh.log = function( str ){
+	tsh.log = function( style, str ){
+		if ( !str ){
+			str = style;
+			style = undefined;
+		}
 		if ( console && console.log )
-			console.log( str );
+			console.log( "%c%s", (style||''), str );
 	};
 	/* 
 		所有方法的备注说明，将更好的让开发者熟练运用所有方法
@@ -82,9 +86,9 @@ JS Document
 			length++;
 			if( typeof key[i] === 'function' ){
 				fnlen++;
-				this.log( 'function => ' + i );
+				this.log( 'color:red', 'function => ' + i );
 			}else if( isNaN( key[i] ) ){
-				this.log( 'number => ' + i );
+				this.log( 'color:green', 'number => ' + i );
 			}else{
 				this.log( typeof key[i] + ' => ' + i );
 			}
@@ -250,11 +254,12 @@ JS Document
 		节点操作
 	*/
 	fnTsh.getComputedStyle = function( curCN ){
-		this = this.get(0);
-		return this.currentStyle ? this.currentStyle[curCN] : getComputedStyle(this,null)[curCN];
+		var This = this.get(0);
+		return This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
 	};
 	/*
 		防止采编人员上传过大图片倒置页面变形
+		不考虑ie6的话，用css定义max-width是最好的。
 	*/
 	fnTsh.copyerPic = function( width ){
 		
@@ -273,7 +278,6 @@ JS Document
 				if ($(ele).height()>maxH)
 				{
 					maxH = $(ele).height();
-					continue;
 				}
 		
 			});
@@ -308,6 +312,16 @@ JS Document
 			  playStr = '<b style="color:red">\u89C6\u9891\u672A\u80FD\u6B63\u5E38\u64AD\u653E\uFF0C\u8BF7\u68C0\u67E5\u89C6\u9891\u683C\u5F0F\u7C7B\u578B\uFF0C\u4EE5\u53CA\u8C03\u7528\u8BE5\u65B9\u6CD5\u7684API</b>';
 		  }
 		  this.html( playStr );
+	};
+	fnTsh.placeholder = function(){
+		
+		var ie = tsh.usebrowser;
+		if ( ie=='IE6' || ie=='IE7' || ie=='IE8' ){
+			this.each(function(){
+				
+			});
+		}
+		
 	};
 	// 接口 绑定至jquery下面
 	$.fn.tsh = fnTsh;
