@@ -106,6 +106,21 @@ JS Document
 		});
 		
 	};
+	/*
+		图片数字
+	*/
+	tsh.picNum = function(num, path){
+		var picStr = '';
+		if ( num && path && !isNaN(num) ){
+			num = num+'';
+			var NumArr = num.split('');
+			for(var i in NumArr)
+			{
+				picStr+='<img src="'+path+NumArr[i]+'.gif" class="middle" />';
+			}
+		}
+		return picStr;
+	};
 
 	/*  获取form表单字段 提交至后端 parameter
 	
@@ -235,7 +250,64 @@ JS Document
 		节点操作
 	*/
 	fnTsh.getComputedStyle = function( curCN ){
+		this = this.get(0);
 		return this.currentStyle ? this.currentStyle[curCN] : getComputedStyle(this,null)[curCN];
+	};
+	/*
+		防止采编人员上传过大图片倒置页面变形
+	*/
+	fnTsh.copyerPic = function( width ){
+		
+		this.find('img').each(function(){
+			if ($(this).width()>=width){$(this).width(width);}
+		});
+		
+	};
+	fnTsh.allHeight = function( repeat ){
+		var setHval = arguments[1],maxH=0;
+		if ( !setHval )
+		{
+			this.each(function(i, ele){
+
+				if ( repeat ){$(ele).css('height','auto');}/* 初始化高度之后有利于重新第再次计算 */
+				if ($(ele).height()>maxH)
+				{
+					maxH = $(ele).height();
+					continue;
+				}
+		
+			});
+			this.height(maxH);
+		}else{
+			setHval = parseFloat(setHval);
+			$(arrayObj.join(',')).height(setHval);
+		}
+	};
+	fnTsh.videoPlay = function( param ){
+		  var PlaySort = param.PlaySort,
+		  	  swf 	   = param.swf,
+		  	  file 	   = param.file,
+		  	  width    = param.width,
+		  	  height   = param.height,
+		  	  playStr  = '';
+		  	  
+		  if (PlaySort=='wmv')
+		  {
+			  playStr = '<embed width="'+parseInt(width)+'" height="'+parseInt(height)+'" autostart="1" loop="false" type="video/x-ms-wmv" src="'+file+'" name="video">';
+		  }
+		  else if (PlaySort=='flv')
+		  {
+				if (!swf || !file){
+					playStr = 'fail! File not found...';
+				}else{
+					playStr = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="'+parseInt(width)+'" height="'+parseInt(height)+'"><param name="movie" value="'+swf+'.swf" /><param name="quality" value="high" /><param name="wmode" value="opaque" /><param name="allowFullScreen" value="true" /><param name="FlashVars" value="vcastr_file='+file+'" /><embed src="'+swf+'.swf" allowfullscreen="true" flashvars="vcastr_file='+file+'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'+parseInt(width)+'" height="'+parseInt(height)+'"></embed></object>';
+				}
+		  }
+		  else
+		  {
+			  playStr = '<b style="color:red">\u89C6\u9891\u672A\u80FD\u6B63\u5E38\u64AD\u653E\uFF0C\u8BF7\u68C0\u67E5\u89C6\u9891\u683C\u5F0F\u7C7B\u578B\uFF0C\u4EE5\u53CA\u8C03\u7528\u8BE5\u65B9\u6CD5\u7684API</b>';
+		  }
+		  this.html( playStr );
 	};
 	// 接口 绑定至jquery下面
 	$.fn.tsh = fnTsh;
