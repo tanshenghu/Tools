@@ -314,17 +314,20 @@ JS Document
 		  this.html( playStr );
 	};
 	fnTsh.placeholder = function(){
-		
+		alert( this.tsh.length )
 		var ie = tsh.usebrowser;
-		if ( ie=='IE6' || ie=='IE7' || ie=='IE8' ){
+		if ( ie=='IE6' || ie=='IE7' || ie=='IE8' || ie=="firefox" ){
+			
 			this.each(function(){
-				
+				alert(123123)
+				this.wrap('span');
 			});
 		}
 		
 	};
 	// 接口 绑定至jquery下面
 	$.fn.tsh = fnTsh;
+	//$.fn.tsh = function(){return this;}
 	$.tsh = tsh;
 	
 })(jQuery)
