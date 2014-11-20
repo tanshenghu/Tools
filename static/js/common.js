@@ -314,7 +314,7 @@ JS Document
 		  this.html( playStr );
 	};
 	fnTsh.placeholder = function(){
-		alert( this.tsh.length )
+		/*
 		var ie = tsh.usebrowser;
 		if ( ie=='IE6' || ie=='IE7' || ie=='IE8' || ie=="firefox" ){
 			
@@ -322,13 +322,74 @@ JS Document
 				alert(123123)
 				this.wrap('span');
 			});
-		}
+		}*/
 		
 	};
 	// 接口 绑定至jquery下面
 	$.fn.tsh = fnTsh;
 	//$.fn.tsh = function(){return this;}
 	$.tsh = tsh;
+	
+	/*
+		对一些原生方法的扩展
+	*/
+	if( !''.trim ){
+		String.prototype.trim = function(){
+			return this.replace(/^\s+|\s+$/mg,'');
+		}
+	};
+	
+	String.prototype.rtrim = function( delStr ){
+		// 没有想到很好的正则，先分开写得土了点
+		var resultStr = '';
+		if ( delStr ){
+			var I = this.lastIndexOf( delStr );
+			resultStr = this.substring(0, I <0 ? this.length : I) + (I <0 ? '' : this.substring( I+1 ));
+		}else{
+			resultStr = this.replace(/.$/mg,'');
+		}
+		
+		return resultStr;
+		
+	};
+	String.prototype.ltrim = function( delStr ){
+		var resultStr = '';
+		if ( delStr ){
+			var I = this.indexOf( delStr );
+			resultStr = this.substring(0, I <0 ? this.length : I) + (I <0 ? '' : this.substring( I+1 ));
+		}else{
+			resultStr = this.replace(/^./mg,'');
+		}
+		
+		return resultStr;
+	};
+	
+	Array.prototype.delVal = function( val, repeat ){
+		var one = false;
+		for(var i in this){
+			if ( this[i]===val && !one ){
+				this.splice(i, 1);
+				if ( !repeat ){
+					one = true;
+				}
+			}
+		}
+		return this;
+	};
+	
+	Array.prototype.clearRepeat = function(){
+		var item = {}, result = [];
+		for(var i=0,l=this.length; i<l; i++){
+			var m = (typeof this[i])+this[i];
+			if ( item[m] === undefined ){
+				result.push( this[i] );
+				item[m] = 'yes';
+			}
+		}
+		
+		return result;
+	};
+	
 	
 })(jQuery)
 
