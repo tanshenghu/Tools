@@ -28,7 +28,7 @@ JS Document
 	tsh.checkIE = (!+[1,]);
 	tsh.browserMsg = window.navigator.userAgent.toLowerCase();
 	tsh.IEDocMode = document.documentMode;
-	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
+	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
 	tsh.setcookies = function(key, val){
 		var saveCookieStr='',setOutTime=arguments[2],saveDay;
 		saveCookieStr = key+'='+escape(val);
@@ -61,6 +61,8 @@ JS Document
 
 	/*
 		 log 方法
+		 style : 输出的样式
+		 str : 输出的字符或对象
 	*/
 	tsh.log = function( style, str ){
 		if ( !str ){
@@ -247,32 +249,61 @@ JS Document
 			
 			return resultObj;
 	};
-	/*
-		在jq中dom对象下挂接
-	*/
-	/*
-		节点操作
-	*/
-	fnTsh.getComputedStyle = function( curCN ){
-		var This = this.get(0);
-		return This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
+	// 全选 操作
+	tsh.checkall = function(hand, checkbox){
+		
+		hand = $(hand),
+		checkbox = $(checkbox);
+		
+		var elesort = hand.prop('nodeName') && hand.prop('nodeName').toLowerCase();
+		
+		var evt = ( elesort == 'input' ) ? 'change' : 'click';
+
+		hand.on(evt, function(){
+			
+			if ( elesort == 'input' ){
+				
+				if ( hand.prop('checked') ){
+					checkbox.prop('checked', true);
+				}else{
+					checkbox.prop('checked', false);
+				}
+				
+			}else{
+				
+				if ( hand.text()=='\u5168\u9009' ){
+					checkbox.prop('checked', true);
+					hand.text('\u4E0D\u5168\u9009')
+				}else{
+					checkbox.prop('checked', false);
+					hand.text('\u5168\u9009')
+				}
+				
+				
+			}
+			
+		});
+		
 	};
+	
 	/*
 		防止采编人员上传过大图片倒置页面变形
 		不考虑ie6的话，用css定义max-width是最好的。
 	*/
-	fnTsh.copyerPic = function( width ){
-		
-		this.find('img').each(function(){
+	tsh.copyerPic = function( wrap, width ){
+		wrap = $(wrap);
+		wrap.find('img').each(function(){
 			if ($(this).width()>=width){$(this).width(width);}
 		});
 		
 	};
-	fnTsh.allHeight = function( repeat ){
-		var setHval = arguments[1],maxH=0;
+	// 统一高度
+	tsh.allHeight = function( eles, repeat ){
+		eles = $( eles );
+		var setHval = arguments[2],maxH=0;
 		if ( !setHval )
 		{
-			this.each(function(i, ele){
+			eles.each(function(i, ele){
 
 				if ( repeat ){$(ele).css('height','auto');}/* 初始化高度之后有利于重新第再次计算 */
 				if ($(ele).height()>maxH)
@@ -281,53 +312,257 @@ JS Document
 				}
 		
 			});
-			this.height(maxH);
+			eles.height(maxH);
 		}else{
 			setHval = parseFloat(setHval);
-			$(arrayObj.join(',')).height(setHval);
+			eles.height(setHval);
 		}
 	};
-	fnTsh.videoPlay = function( param ){
-		  var PlaySort = param.PlaySort,
+	// 获取 文件后缀名
+	tsh.getFileType = function( file ){
+		if ( typeof file !== 'string' ){return;};
+		return file.match(/\..+$/g)[0];
+	};
+	// 视频播放器
+	tsh.videoPlay = function( param ){
+		  var playbox  = $(param.box),
 		  	  swf 	   = param.swf,
 		  	  file 	   = param.file,
-		  	  width    = param.width,
-		  	  height   = param.height,
-		  	  playStr  = '';
+		  	  width    = param.width || 250,
+		  	  height   = param.height || 200,
+		  	  playStr  = '',
+		  	  fileType = this.getFileType( file );
 		  	  
-		  if (PlaySort=='wmv')
+		  if (fileType=='.wmv')
 		  {
-			  playStr = '<embed width="'+parseInt(width)+'" height="'+parseInt(height)+'" autostart="1" loop="false" type="video/x-ms-wmv" src="'+file+'" name="video">';
+			  playStr = '<embed width="'+parseFloat(width)+'" height="'+parseFloat(height)+'" autostart="1" loop="false" type="video/x-ms-wmv" src="'+file+'">';
 		  }
-		  else if (PlaySort=='flv')
+		  else if (fileType=='.flv')
 		  {
 				if (!swf || !file){
 					playStr = 'fail! File not found...';
 				}else{
-					playStr = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="'+parseInt(width)+'" height="'+parseInt(height)+'"><param name="movie" value="'+swf+'.swf" /><param name="quality" value="high" /><param name="wmode" value="opaque" /><param name="allowFullScreen" value="true" /><param name="FlashVars" value="vcastr_file='+file+'" /><embed src="'+swf+'.swf" allowfullscreen="true" flashvars="vcastr_file='+file+'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'+parseInt(width)+'" height="'+parseInt(height)+'"></embed></object>';
+					playStr = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="'+parseFloat(width)+'" height="'+parseFloat(height)+'"><param name="movie" value="'+swf+'" /><param name="quality" value="high" /><param name="wmode" value="opaque" /><param name="allowFullScreen" value="true" /><param name="FlashVars" value="vcastr_file='+file+'" /><embed src="'+swf+'" allowfullscreen="true" flashvars="vcastr_file='+file+'" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'+parseFloat(width)+'" height="'+parseFloat(height)+'"></embed></object>';
 				}
 		  }
 		  else
 		  {
 			  playStr = '<b style="color:red">\u89C6\u9891\u672A\u80FD\u6B63\u5E38\u64AD\u653E\uFF0C\u8BF7\u68C0\u67E5\u89C6\u9891\u683C\u5F0F\u7C7B\u578B\uFF0C\u4EE5\u53CA\u8C03\u7528\u8BE5\u65B9\u6CD5\u7684API</b>';
 		  }
-		  this.html( playStr );
+		  playbox.html( playStr );
 	};
-	fnTsh.placeholder = function(){
-		/*
-		var ie = tsh.usebrowser;
-		if ( ie=='IE6' || ie=='IE7' || ie=='IE8' || ie=="firefox" ){
-			
-			this.each(function(){
-				alert(123123)
-				this.wrap('span');
+	// 低版本的ie placeholder属性
+	tsh.placeholder = function(){
+		var isie = ~~$.tsh.usebrowser.replace('IE','');
+		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
+			$(':text[placeholder],textarea[placeholder]').each(function(ele, i){
+				var thisObj = $(ele),
+				// label 这块的样式由于扩展与优先级的问题没有写死，用placeholder样式自定义吧...
+					label = $('<label class="placeholder" style="position:absolute;">'+thisObj.attr('placeholder')+'</label>');
+				
+				thisObj.parent().css('position','relative')
+				thisObj.after( label );
+				
+				label.on('click', function(){
+					$(this).hide().prev(':text,textarea').focus();
+				});
+				thisObj.on('focus', function(){
+					if( $(this).next('label:visible') ){
+						label.hide();
+					}
+					
+				}).on('blur', function(){
+					if( !$(this).val().trim() ){
+						label.show();
+					}
+				});
+				
 			});
-		}*/
+		}
 		
 	};
+	
+	// 导航选中状态
+	tsh.currentMenu = function( nav, index ){
+		
+		index = ( typeof index != 'number' ) ? parseInt( index ) : index;
+		if ( typeof index != 'number' ) return false;
+		
+		$(nav).eq( index ).addClass('current').siblings(nav).removeClass('current');
+	
+	};
+	
+	// 字段清空
+	tsh.emptyele = function( box ){
+		
+		var Box   = $(box),
+		deEle = arguments[1] || '.jq-empty';
+
+		Box.find( deEle ).each(function(i, ele){
+			var curEle = $(ele);
+			if( curEle.prop('nodeName').toLowerCase()==='input' || curEle.prop('nodeName').toLowerCase()==='textarea' ){
+				curEle.val('');
+			}else if( curEle.prop('nodeName').toLowerCase()==='select' ){
+				curEle.find(':selected').prop('selected', false);
+			}else{
+				curEle.html('');
+			};
+
+		});
+		
+	};
+	// 下拉框
+	tsh.dropDown = function( dropdownbox ){
+		dropdownbox = dropdownbox ? $(dropdownbox) : $('.dropdownbox');
+		
+		dropdownbox.on('mousedown', function( ev ){
+			var ev = ev || event,
+				thisObj = $(this);
+			dropdownbox.not( thisObj ).find('.downcontent').hide();
+			
+			if ( !thisObj.find('.downcontent a').length ){
+				return;
+			}
+			
+			thisObj.find('.downcontent').slideDown('fast');
+			
+			
+			ev.stopPropagation();
+		}).find('.downcontent').on('click','a',function( ev ){
+			var thisObj = $(this);
+			
+			thisObj.closest(dropdownbox).children(':text').eq(0).val( thisObj.text() ).attr('key', thisObj.attr('key') || '' );
+			thisObj.parent().slideUp('fast');
+			
+		}).prevAll(':text').prop('readonly', true);
+		
+		$(document).on('mousedown', function(){
+			dropdownbox.find('.downcontent').hide();
+		});
+		
+		//return thisdropDown;
+		
+	};
+	
+	// 弹出 浮层
+	tsh.popupbox = function( param ){
+		var hand= $( param.hand ),
+			box = $( param.box ),
+			zIndex = param.zindex || 1000,
+			CW  = 0,
+			CH  = 0,
+			boxW= parseInt( param.width ),
+			boxH= parseInt( param.height ),
+			sclT= 0,
+			sclL=0,
+			callback = param.callback;
+
+		if ( !box.length ){
+			this.log( 'color:red', "error:not "+param.box );
+			return;
+		}
+		// 是否外层判断并处理
+		if ( box.parent().prop('nodeName').toLowerCase()!='body' ){
+			$('body').append( box );
+		}
+
+		if ( !(param.width) ){
+			box.css('display','inline');
+			boxW = box.width();
+			
+		}if ( !(param.height) ){
+			box.css('display','inline');
+			boxH = box.height();
+		}
+
+		var bgDiv = $('#coverPop').length ? $('#coverPop') : $('<div id="coverPop"></div>');
+
+		var posFn = function(){
+			CW  = document.documentElement.clientWidth;
+			CH  = document.documentElement.clientHeight;
+			sclT= $(document).scrollTop() || 0;
+			sclL= $(document).scrollLeft() || 0;
+		
+			var left = ( ( CW - boxW )*0.5 < 0 ) ? 0 : ( ( CW - boxW )*0.5 > (CW-boxW) ) ? CW-boxW : ( CW - boxW )*0.5;
+			var top = ( ( CH - boxH )*0.5 < 0 ) ? 0 : ( ( CH - boxH )*0.5 > (CH-boxH) ) ? CH-boxH : ( CH - boxH )*0.5;
+
+			var css = {
+				"position":"absolute",
+				"z-index":zIndex,
+				"display":"none",
+				"left":left+sclL,
+				"background-color":"white",
+				"top":top+sclT
+			};
+
+			var DH = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			bgDiv.css({"position":"absolute","z-index":zIndex-1,"left":"0","top":"0","width":"100%","display":"none","background":"black","opacity":"0.5","height":DH});
+
+			return css;
+		};
+
+		var css = posFn();
+
+		if ( param.width ){
+			css.width = param.width;
+		}else{
+			css.width = 'auto';
+		}
+		if ( param.height ){
+			css.height = param.height;
+		}else{
+			css.height = 'auto';
+		}
+
+		box.css( css ).before( bgDiv );
+
+		hand.on('click', function(){
+			var DH    = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+			box.css( posFn() );
+			bgDiv.height( DH ).fadeIn();
+			box.fadeIn();
+			if ( typeof callback === 'function' ){
+				callback.apply(this, [box]);
+			}
+		});
+
+		box.find('.closeMe').on('click', function(){
+			bgDiv.fadeOut('fast');
+			box.fadeOut('fast');
+		});
+	};
+	
+	// 获取 url 参数   想了一下还是最终返回一个对象比较好。把全部集合返回出去让开发自己挑
+	tsh.getUrlParam = function(){
+		var result = {},
+			searchstr = arguments[0] ? arguments[0]+''.substring(arguments[0]+''.indexOf('?')) : document.location.search;
+		searchstr = searchstr.ltrim();
+		
+		var arr = searchstr.split('&');
+		for(var i=0,l=arr.length; i<l; i++){
+			var itemarr = arr[i].split('=');
+			result[itemarr[0]] = itemarr[1];
+		}
+		return result;
+	};
+	
+	// tab切换
+	tsh.checkTab = function( param ){
+		var hand = param.hand,
+			box  = param.box,
+			evt  = param.evt || 'click',
+			callback = param.callback;
+		$(hand).on(evt, function(){
+			var thisObj = $(this),
+				Index 	= thisObj.index(hand);
+			thisObj.addClass('current').siblings(hand).removeClass('current');	
+			$(box).eq(Index).show().siblings(box).hide();
+			if( typeof callback === 'function' ){
+				callback.apply(this,[]);
+			};	
+		});
+	};
 	// 接口 绑定至jquery下面
-	$.fn.tsh = fnTsh;
-	//$.fn.tsh = function(){return this;}
 	$.tsh = tsh;
 	
 	/*
@@ -389,7 +624,14 @@ JS Document
 		
 		return result;
 	};
-	
+	// 获取css属性值
+	if ( !window.getComputedStyle || (typeof window.getComputedStyle) === 'function' ){
+		// This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
+		window.getComputedStyle = function( ele ){
+			var This = ele.nodeName ? ele : ele.get(0);
+			return This.currentStyle ? This.currentStyle : getComputedStyle(This,null);
+		};
+	}
 	
 })(jQuery)
 
