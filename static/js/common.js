@@ -29,7 +29,7 @@ JS Document
 	tsh.browserMsg = window.navigator.userAgent.toLowerCase();
 	tsh.IEDocMode = document.documentMode;
 	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
-	tsh.setcookies = function(key, val){
+	tsh.setCookies = function(key, val){
 		var saveCookieStr='',setOutTime=arguments[2],saveDay;
 		saveCookieStr = key+'='+escape(val);
 		if (setOutTime!=undefined)
@@ -41,7 +41,7 @@ JS Document
 		}
 		document.cookie = saveCookieStr+'; path=/';
 	};
-	tsh.getcookies = function( key ){
+	tsh.getCookies = function( key ){
 		var CookStr = document.cookie;
 		CookArr = CookStr.split('; ');
 		for(var i in CookArr)
@@ -52,7 +52,7 @@ JS Document
 			}
 		}
 	};
-	tsh.delcookies = function( key ){
+	tsh.delCookies = function( key ){
 		var keyVal = '',saveDay;
 		saveDay = new Date('1970/01/05');
 		saveDay.setDate(saveDay.getDate());
@@ -136,7 +136,7 @@ JS Document
 			  way是配合selector特殊筛选的参数，布尔值默认为true
 			  Encode是编码方法。可传入常用的三种编码中的任意一种都行
 	*/
-	tsh.Get_form_param = function( param ){
+	tsh.getFormField = function( param ){
 		if ( !(param instanceof Object) ) this.log( 'parameter '+param+' error' );
 
 			var form = checkJqObject( param.form ),
@@ -219,7 +219,7 @@ JS Document
 	/*
 		 考虑到 如：兴趣、爱好之类 checkbox同name属性，最终需要组合成数组对象
 	*/
-	tsh.Get_form_param.Get_checkbox = function(form, checkName){
+	tsh.getFormField.getCheckboxVal = function(form, checkName){
 			var resultObj = {},
 				getVal    = [],
 				decoll    = arguments[2];
@@ -250,7 +250,7 @@ JS Document
 			return resultObj;
 	};
 	// 全选 操作
-	tsh.checkall = function(hand, checkbox){
+	tsh.checkAll = function(hand, checkbox){
 		
 		hand = $(hand),
 		checkbox = $(checkbox);
@@ -393,7 +393,7 @@ JS Document
 	};
 	
 	// 字段清空
-	tsh.emptyele = function( box ){
+	tsh.emptyEle = function( box ){
 		
 		var Box   = $(box),
 		deEle = arguments[1] || '.jq-empty';
@@ -445,7 +445,7 @@ JS Document
 	};
 	
 	// 弹出 浮层
-	tsh.popupbox = function( param ){
+	tsh.popupBox = function( param ){
 		var hand= $( param.hand ),
 			box = $( param.box ),
 			zIndex = param.zindex || 1000,
