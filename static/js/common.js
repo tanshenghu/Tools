@@ -625,8 +625,9 @@ JS Document
 		return result;
 	};
 	// 获取css属性值
-	if ( !window.getComputedStyle || (typeof window.getComputedStyle) === 'function' ){
+	if ( !window.getComputedStyle || (typeof window.getComputedStyle) !== 'function' ){
 		// This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
+		
 		window.getComputedStyle = function( ele ){
 			var This = ele.nodeName ? ele : ele.get(0);
 			return This.currentStyle ? This.currentStyle : getComputedStyle(This,null);
