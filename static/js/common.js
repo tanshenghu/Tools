@@ -17,11 +17,11 @@ JS Document
 	*/
 	tsh.clientWidth = function(){return document.documentElement.clientWidth;};
 	tsh.clientHeight = function(){return document.documentElement.clientHeight;};
-	tsh.offsetHeight = function(){return document.documentElement.scrollHeight || document.body.scrollHeight;};
-	tsh.offsetWidth = function(){return document.documentElement.scrollWidth || document.body.scrollWidth;};
-	tsh.scrollHeight = function(){return document.documentElement.scrollTop || document.body.scrollTop;};
-	tsh.scrollWidth = function(){return document.documentElement.scrollLeft || document.body.scrollLeft;};
-	tsh.Resolution = function( Options ){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
+	tsh.scrollHeight = function(){return document.documentElement.scrollHeight || document.body.scrollHeight;};
+	tsh.scrollWidth = function(){return document.documentElement.scrollWidth || document.body.scrollWidth;};
+	tsh.scrollTop = function(){return document.documentElement.scrollTop || document.body.scrollTop;};
+	tsh.scrollLeft = function(){return document.documentElement.scrollLeft || document.body.scrollLeft;};
+	tsh.screenWH = function( Options ){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
 		var X = window.screen.width,Y = window.screen.height;
 		return Options=='x' ? X : Options=='y' ? Y : X+'×'+Y;
 	};
@@ -105,11 +105,16 @@ JS Document
 	*/
 	tsh.remark.demo = function( key ){
 		if ( !key ) return;
-
-		$.getJSON('http://www.tanshenghu.com/code/tsh_js.php?callback=?', 'key='+key, function(data){
-			data = data.toString();
-			tsh.log( data );
-		});
+		
+		tsh.remark.key = key;
+		
+		$('#tsh_js_demo').remove();
+		var script = document.createElement('script');
+		script.id = 'tsh_js_demo';
+		script.setAttribute('onerror', 'alert("api加载失败，请联系作者-TanShenghu")');
+		//script.src = 'http://git.oschina.net/tanshenghu/myweb/raw/master/static/js/common_demo.js?rand=js'+new Date().getTime();
+		script.src = 'myGit/oschina/myweb/static/js/common_demo.js?rand=js'+new Date().getTime();
+		document.body.appendChild( script );
 		
 	};
 	/*
