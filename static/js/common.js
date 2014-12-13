@@ -603,7 +603,7 @@ JS Document
 		
 		return resultStr;
 	};
-	
+	// 删除数组某个值，第二个参数决定是否重复删除。例如要删除的值在数组多次出现，是否只删除第一个还是所有的
 	Array.prototype.delVal = function( val, repeat ){
 		var one = false;
 		for(var i in this){
