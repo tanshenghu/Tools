@@ -629,6 +629,42 @@ JS Document
 		
 		return result;
 	};
+	
+	
+	// 真，伪数组互转
+	Array.prototype.toObject = function(){
+		var obj = {}, 
+			push = Array.prototype.push; 
+			push.apply(obj, this ); 
+			return obj;
+	};
+	Object.prototype.toArray = function(){
+		var slice = Array.prototype.slice;
+			// 为防止报错，检查对象是否有length属性
+			if ( this.length === undefined ){return false;}
+			return slice.call(this,0); 
+	};
+	
+	Date.prototype.format = function(format)
+	{
+		var o = {
+			"M+" : this.getMonth()+1, //month
+			"d+" : this.getDate(), //day
+			"h+" : this.getHours(), //hour
+			"m+" : this.getMinutes(), //minute
+			"s+" : this.getSeconds(), //second
+			"q+" : Math.floor((this.getMonth()+3)/3), //quarter
+			"S" : this.getMilliseconds() //millisecond
+		}
+		if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+		(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+		for(var k in o)if(new RegExp("("+ k +")").test(format))
+		format = format.replace(RegExp.$1,
+		RegExp.$1.length==1 ? o[k] :
+		("00"+ o[k]).substr((""+ o[k]).length));
+		return format;
+	}
+	
 	// 获取css属性值
 	if ( !window.getComputedStyle || (typeof window.getComputedStyle) !== 'function' ){
 		// This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
