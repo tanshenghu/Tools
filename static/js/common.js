@@ -25,10 +25,10 @@ JS Document
 		var X = win.screen.width,Y = win.screen.height;
 		return Options=='x' ? X : Options=='y' ? Y : X+'×'+Y;
 	};
-	tsh.checkIE = (!+[1,]);
+	tsh.isIE = (!+[1,]);
 	tsh.browserMsg = win.navigator.userAgent.toLowerCase();
 	tsh.IEDocMode = document.documentMode;
-	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
+	tsh.useBrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
 	tsh.setCookies = function(key, val){
 		var saveCookieStr='',setOutTime=arguments[2],saveDay;
 		saveCookieStr = key+'='+escape(val);
