@@ -9,7 +9,7 @@ JS Document
 ◎ *@AuthorNote: 请不要随便篡改文件内容。尊重他人劳动成果！谢谢...     谭生虎 注
 ◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇◆◇
 */
-(function($){
+(function($, win){
 	var tsh   = {},
 		fnTsh = {};
 	/*
@@ -22,11 +22,11 @@ JS Document
 	tsh.scrollTop = function(){return document.documentElement.scrollTop || document.body.scrollTop;};
 	tsh.scrollLeft = function(){return document.documentElement.scrollLeft || document.body.scrollLeft;};
 	tsh.screenWH = function( Options ){																	/* 捕获客户端分辨率 参数说明：传入x捕获宽，传入y捕获高，否则捕获宽×高 */
-		var X = window.screen.width,Y = window.screen.height;
+		var X = win.screen.width,Y = win.screen.height;
 		return Options=='x' ? X : Options=='y' ? Y : X+'×'+Y;
 	};
 	tsh.checkIE = (!+[1,]);
-	tsh.browserMsg = window.navigator.userAgent.toLowerCase();
+	tsh.browserMsg = win.navigator.userAgent.toLowerCase();
 	tsh.IEDocMode = document.documentMode;
 	tsh.usebrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
 	tsh.setCookies = function(key, val){
@@ -570,6 +570,7 @@ JS Document
 	// 接口 绑定至jquery下面
 	$.tsh = tsh;
 	
+	fnTsh.common = {};
 	/*
 		对一些原生方法的扩展
 	*/
@@ -638,7 +639,7 @@ JS Document
 			push.apply(obj, this ); 
 			return obj;
 	};
-	Object.prototype.toArray = function(){
+	fnTsh.common.ObjectToArray = function(){
 		var slice = Array.prototype.slice;
 			// 为防止报错，检查对象是否有length属性
 			if ( this.length === undefined ){return false;}
@@ -666,16 +667,20 @@ JS Document
 	}
 	
 	// 获取css属性值
-	if ( !window.getComputedStyle || (typeof window.getComputedStyle) !== 'function' ){
+	if ( !win.getComputedStyle || (typeof win.getComputedStyle) !== 'function' ){
 		// This.currentStyle ? This.currentStyle[curCN] : getComputedStyle(This,null)[curCN];
 		
-		window.getComputedStyle = function( ele ){
+		win.getComputedStyle = function( ele ){
 			var This = ele.nodeName ? ele : ele.get(0);
 			return This.currentStyle ? This.currentStyle : getComputedStyle(This,null);
 		};
 	}
+	/*
+		对象挂接
+	*/
+	win.common = fnTsh;
 	
-})(jQuery)
+})(jQuery, window);
 
 
 //});
