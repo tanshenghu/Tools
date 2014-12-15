@@ -25,8 +25,11 @@ JS Document
 		var X = win.screen.width,Y = win.screen.height;
 		return Options=='x' ? X : Options=='y' ? Y : X+'×'+Y;
 	};
-	tsh.isIE = (!+[1,]);
-	tsh.browserMsg = win.navigator.userAgent.toLowerCase();
+	tsh.browserMsg = win.navigator.userAgent;
+	tsh.browserAppName = navigator.appName; // 返回浏览器的代码名
+	tsh.browserAppVersion  = navigator.appVersion; // 浏览器版本号
+	//tsh.isIE = (!+[1,]); // 不能用这个做ie的判断条件了，因为ie8以后已经修复这个问题了
+	tsh.isIE = /msie/img.test( tsh.browserMsg );
 	tsh.IEDocMode = document.documentMode;
 	tsh.useBrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
 	tsh.setCookies = function(key, val){
