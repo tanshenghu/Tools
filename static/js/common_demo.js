@@ -30,7 +30,7 @@ var tsh_js_key = $.tsh.remark.key,
 		"currentMenu" : "<label>\/\/ 用于不同页面，当前导航菜单选中。这个功能最好是后端来做！</label><p class='fnbox'>$.tsh.currentMenu('nav li', 0);\/\/两个必选参数</p>",
 		"emptyEle" : "<label>\/\/ 用于清空文本或者div等里面的内容</label><p class='fnbox'>$.tsh.emptyEle('.myform', '.jq-empty');\/\/第一个参数必选，第二个可选(默认需要在需要清空的元素上定义class=jq-empty)</p>",
 		"dropDown" : "<label>\/\/ 个性下拉框</label><p class='fnbox'>$.tsh.dropDown('.dropdownbox');\/\/第一个可选(默认需要在下拉框外层元素上定义class=dropdownbox，然后下拉层的class预定为downcontent)</p>",
-		"popupBox" : "<label>\/\/ 简单的弹出层</label><p class='fnbox'>$.tsh.popupBox({hand:'.showpop',box:'.popbox',zindex:1000,width:320,height:120,callback:function(box){...}});\/\/所有参数均列出，比较的简单不做详解了...回调函数的this指向原生的hand，第一个参数指向box</p>",
+		"popupBox" : "<label>\/\/ 简单的弹出层</label><p class='fnbox'>$.tsh.popupBox({hand:'.showpop',box:'.popbox',zindex:1000,width:320,height:120,callback:function(box){...}});\/\/所有参数均列出，比较的简单不做详解了...回调函数的this指向原生的hand，第一个参数指向box <br>另外想要弄个关闭按钮就在按钮上加class=closeMe</p>",
 		"getUrlParam" : "<label>\/\/ 获取url中的参数</label><p class='fnbox'>$.tsh.getUrlParam( url )['id'];\/\/第一个参数可选，默认是当前的url地址，注意：方法最终返回对象</p>",
 		"checkTab" : "<label>\/\/ tab选项卡切换</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
 		
