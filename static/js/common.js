@@ -437,10 +437,22 @@ JS Document
 			
 			ev.stopPropagation();
 		}).find('.downcontent').on('click','a',function( ev ){
-			var thisObj = $(this);
+			var thisObj = $(this),
+				dropdownbox = thisObj.closest('.dropdownbox'),
+				cinput = dropdownbox.children('.cinput');
 			
-			thisObj.closest(dropdownbox).children(':text').eq(0).val( thisObj.text() ).attr('key', thisObj.attr('key') || '' );
+			var callfn = dropdownbox.data( 'dropdown' );
+			
+			if ( cinput.prop('nodeName').toLowerCase() === 'input' ){
+				cinput.val( thisObj.html() ).attr('key', thisObj.attr('key') || '' );
+			}else{
+				cinput.text( thisObj.html() ).attr('key', thisObj.attr('key') || '' );
+			}
 			thisObj.parent().slideUp('fast');
+			
+			if ( callfn && callfn.callback && typeof callfn.callback == 'function' ){
+				callfn.callback.apply( this,[] );
+			}
 			
 		}).prevAll(':text').prop('readonly', true);
 		
