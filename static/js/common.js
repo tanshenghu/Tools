@@ -587,6 +587,91 @@ JS Document
 	
 	fnTsh.common = {};
 	/*
+	  2014-12-21 编写此前端列表排序的方法。
+	  写此方法是因为做财资系统项目可能需要这个排序功能，但这个功能最好是后端来做排序比较准确。
+	  前端来做的优点是减少数据请求减小服务器压力
+	*/
+	fnTsh.common.gridsort = {
+		
+		sort : function( tbody, idx, srt ){
+			this.srt = srt || 'desc';
+			this.idx = parseInt( idx );
+			this.tbody = $( tbody );
+			
+			this.contrast();
+		},
+		// 每行数据的比较
+		contrast : function(){
+			var This = this,
+				trArr   = [],
+				NumArr = [];
+				
+			this.tbody.find('tr').each(function(i, ele){
+				trArr.push( ele );
+				
+				var curTd = $(ele).children().eq( This.idx );
+				NumArr.push( curTd.text() );
+				
+			});
+			
+			NumArr.sort(function(a, b){
+				a = parseFloat( This.isDate(a) );
+				b = parseFloat( This.isDate(b) );
+				if ( This.srt === 'asc' ){
+					if ( a < b ){
+						return -1;
+					}else{
+						return 1;
+					}
+				}else{
+					if ( a > b ){
+						return -1;
+					}else{
+						return 1;
+					}
+				}
+				
+			});
+			
+			// 伪数组
+			var newTrObj = This.newsortobj( trArr, NumArr );
+			This.tbody.empty();
+			for( var i=0, l=newTrObj.length; i<l; i++ ){
+				This.tbody.append( newTrObj[i] );
+			}
+			
+		},
+		// 判断一个值是否日历 处理并返回数字
+		isDate : function( val ){
+			//  
+			var reg = /\d+\-\d+|\d+\/\d+|\d+年\d+/g;
+			if ( reg.test(val) ){
+				val = val.replace(/-|\//g,'');
+			}
+			return val;
+		},
+		// 根据大小条件 组装json
+		newsortobj : function( trs, nums ){
+			var This = this,
+				resultObj = {"length":0};
+			for(var i=0,l=nums.length; i<l; i++){
+				
+				var cnum = nums[i];
+				for(var j=0,k=trs.length; j<k; j++){
+					if ( $( trs[j] ).children().eq( This.idx ).text() == cnum ){
+						resultObj[ resultObj.length ] = $( trs[j] );
+						resultObj.length += 1;
+					}
+				}
+				
+			}
+			
+			return resultObj;
+			
+		}
+		
+	};
+	/*
 		对一些原生方法的扩展
 	*/
 	if( !''.trim ){
@@ -654,11 +739,11 @@ JS Document
 			push.apply(obj, this ); 
 			return obj;
 	};
-	fnTsh.common.ObjectToArray = function(){
+	fnTsh.common.ObjectToArray = function( obj ){
 		var slice = Array.prototype.slice;
 			// 为防止报错，检查对象是否有length属性
 			if ( this.length === undefined ){return false;}
-			return slice.call(this,0); 
+			return slice.call(obj, 0); 
 	};
 	
 	Date.prototype.format = function(format)

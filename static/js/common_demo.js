@@ -36,6 +36,8 @@ var tsh_js_key = $.tsh.remark.key,
 		"getUrlParam" : "<label>\/\/ 获取url中的参数</label><p class='fnbox'>$.tsh.getUrlParam( url )['id'];\/\/第一个参数可选，默认是当前的url地址，注意：方法最终返回对象</p>",
 		"checkTab" : "<label>\/\/ tab选项卡切换</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
 		
+		"common" : "<label>\/\/ gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能$('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>gridsort.sort( 'tbody', idx, 'asc' );<br>}), ObjectToArray===>将伪数组转数组.fnTsh.common.ObjectToArray({'0':'a','length':1});</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
+		
 		"other" : "<label>\/\/ 还有一些其它的方法，没有挂接在tsh下面，对原生的对象的一些扩展。如下：<br> String &lt; trim(),rtrim(','),ltrim('|') &gt; 参数都是可选，如果填写参数就是找到那个字符再删除<br> Array &lt; delVal(val, repeat),clearRepeat(),toObject()将数组转伪数组 &gt; <br> window &lt; getComputedStyle(obj)['color'] &gt; <br> Date &lt; new Date().format('yyyy年MM月dd hh:mm:ss')这个扩展方法是在网上摘抄下来的 &gt; <br> Object &lt; toArray() 将伪数组转数组 &gt;</label>"
 };
 
