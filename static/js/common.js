@@ -115,8 +115,8 @@ JS Document
 		var script = document.createElement('script');
 		script.id = 'tsh_js_demo';
 		script.setAttribute('onerror', 'alert("api加载失败，请联系作者-TanShenghu")');
-		//script.src = 'http://git.oschina.net/tanshenghu/myweb/raw/master/static/js/common_demo.js?rand=js'+new Date().getTime();
-		script.src = 'myGit/oschina/myweb/static/js/common_demo.js?rand=js'+new Date().getTime();
+		script.src = 'http://git.oschina.net/tanshenghu/myweb/raw/master/static/js/common_demo.js?rand=js'+new Date().getTime();
+		//script.src = 'myGit/oschina/myweb/static/js/common_demo.js?rand=js'+new Date().getTime();
 		document.body.appendChild( script );
 		
 	};
