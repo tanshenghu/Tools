@@ -300,3 +300,37 @@ code,kbd,pre,samp{
 .hand{cursor:pointer;}
 .selectBgColor();
 .No_Select{-moz-user-select:none;-webkit-user-select:none;user-select:none;}
+
+// 自定义的radio, checkbox
+.custom-checkbox{
+		.I-B;
+		width:15px;
+		height:15px;
+		.overhide;
+		.posrel;
+
+		i{
+			.I-B;
+			width:100%;
+			height:100%;
+			.overhide;
+			background:red;
+		}
+	
+		input{
+			.posabs;
+			width:300px;
+			height:300px;
+			.opacity:(0);
+			
+			&:checked+i{
+				background:green;
+			}
+		}
+		
+		&.checked i{
+			background:green;
+		}
+	
+		
+}

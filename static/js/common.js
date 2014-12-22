@@ -389,6 +389,18 @@ JS Document
 		}
 		
 	};
+	// 自定义 radio,checkbox框
+	tsh.customCheckbox = function(){
+		var isie = ~~$.tsh.usebrowser.replace('IE','');
+		
+		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
+			$('.custom-checkbox').on('change', function(){
+				if ( $(this).prop('checked') ){
+					$(this).parent().addClass('checked');
+				}
+			});
+		}
+	};
 	
 	// 导航选中状态
 	tsh.currentMenu = function( nav, index ){
@@ -779,6 +791,12 @@ JS Document
 		对象挂接
 	*/
 	win.common = fnTsh;
+	
+	/*
+		自执行函数
+	*/
+	
+	
 	
 })(jQuery, window);
 
