@@ -1,5 +1,14 @@
 # tanshenghu  TSH
 
+[![NPM version](https://img.shields.io/npm/v/spm-build.svg?style=flat)](https://tanshenghu.com)
+[![Build Status](https://img.shields.io/travis/spmjs/spm-build.svg?style=flat)](https://tanshenghu.com)
+[![Coverage Status](https://img.shields.io/coveralls/spmjs/spm-build.svg?style=flat)](https://tanshenghu.com)
+[![NPM downloads](http://img.shields.io/npm/dm/spm-build.svg?style=flat)](https://tanshenghu.com)
+
+Build tool for spm3. If you're still using spm2, go branch [spm2](https://tanshenghu.com).
+
+---
+
 > test git
 
 -----
