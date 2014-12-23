@@ -257,6 +257,30 @@ JS Document
 			
 			return resultObj;
 	};
+	// 对form表单获取数据的扩展，主要是对tr行获取数据的扩展
+	tsh.getFormField.getLineVals = function( trs ){
+		trs = $( trs );
+		var result = [];
+		trs.each(function(){
+			var iObj = {};
+
+			$(this).find('[name]').each(function(i, ele){
+				var elent = $(ele),
+				    nodeName = elent.prop('nodeName').toLowerCase();
+				if ( nodeName == 'input' || nodeName == 'textarea' || nodeName == 'select' ){
+					iObj[ elent.attr('name') ] = elent.val();
+				}else{
+					iObj[ elent.attr('name') ] = elent.text();
+				}
+			});
+			
+			result.push( iObj );
+			
+		});
+		
+		return result;
+		
+	};
 	// 全选 操作
 	tsh.checkAll = function(hand, checkbox){
 		
