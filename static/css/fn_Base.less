@@ -96,6 +96,14 @@
 	border-image: ~"@{option}";
 }
 
+.linearGradient( @startClr : white, @endClr : white ){
+	background-color: @endClr;
+	background: linear-gradient(top, @startClr, @endClr);
+	background: -moz-linear-gradient(top, @startClr, @endClr);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(@startClr), to(@endClr));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@startClr', endColorstr='@endClr');
+}
+
 .bg( @clr : white ) when( iscolor(@clr) ){
 	// .mixin (@a) when (isnumber(@a)) and (@a > 0) { ... }
 	background-color:@clr;
