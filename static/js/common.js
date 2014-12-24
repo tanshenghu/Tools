@@ -504,6 +504,7 @@ JS Document
 	tsh.popupBox = function( param ){
 		var hand= $( param.hand ),
 			box = $( param.box ),
+			cover = param.cover,
 			zIndex = param.zindex || 1000,
 			CW  = 0,
 			CH  = 0,
@@ -570,7 +571,11 @@ JS Document
 			css.height = 'auto';
 		}
 
-		box.css( css ).before( bgDiv );
+		box.css( css );
+		cover = ( typeof cover == 'undefined' ) ? true : cover;
+		if ( cover ){
+			box.before( bgDiv );
+		}
 
 		hand.on('click', function(){
 			var DH    = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
@@ -583,7 +588,9 @@ JS Document
 		});
 
 		box.find('.closeMe').on('click', function(){
-			bgDiv.fadeOut('fast');
+			if ( cover ){
+				bgDiv.fadeOut('fast');
+			}
 			box.fadeOut('fast');
 		});
 	};
