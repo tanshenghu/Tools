@@ -138,6 +138,8 @@
 .formfield( @width : 120px ){
 	
 	.padding( 7px 5px 20px @width );
+	// 为了兼容低版本ie 有晃动的情况，倒置.label -marginleft失效
+	.zom;
 	.label{
 		.I-B;
 		width:@width - 10;
@@ -153,6 +155,7 @@
 
 .borTab( @clr : #ccc ){
 	
+	// 用border-rigth也是为了下面让td用first-child伪类。因为ie8及以下是不支持last-child伪类的
 	border-right:1px solid @clr;
 	border-top:1px solid @clr;
 
