@@ -153,19 +153,19 @@
 
 .borTab( @clr : #ccc ){
 	
-	border-left:1px solid @clr;
+	border-right:1px solid @clr;
 	border-top:1px solid @clr;
 
 	thead th,tfoot th{
 		border-bottom:1px solid @clr;
-		&:last-child{
-			border-right:1px solid @clr;
+		&:first-child{
+			border-left:1px solid @clr;
 		}
 	}
 
 	thead td,tbody td,tbody th{
 		border-bottom:1px solid @clr;
-		border-right:1px solid @clr;
+		border-left:1px solid @clr;
 	}
 	
 };
