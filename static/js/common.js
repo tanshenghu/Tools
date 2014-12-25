@@ -281,6 +281,28 @@ JS Document
 		return result;
 		
 	};
+	// 删除tr行数据
+	tsh.removeLine = function( This ){
+		This = $( This );
+		var pobj = This.closest('tr');
+		pobj.remove();
+	};
+	// 添加行数据
+	tsh.addNewLine = function( tplTab, tarTab ){
+		tplTab = $( tplTab );
+		tarTab = $( tarTab );
+		var lastTr;
+		if ( tplTab.prop('nodeName').toLowerCase()==='script' ){
+			lastTr = $( tplTab.html() );
+		}else{
+			lastTr = tplTab.find('tbody tr').last();
+		}
+		var newTr = lastTr.clone( true );
+		newTr = newTr.not('.noEmpty');
+		newTr.find(':text,textarea').val('');
+		newTr.find('.cival').empty();
+		tarTab.find('tbody').append( newTr );
+	};
 	// 全选 操作
 	tsh.checkAll = function(hand, checkbox){
 		
