@@ -84,13 +84,13 @@
 	-webkit-border-radius: @val;
 	border-radius: @val;
 }
-.shadow( @sort : box, @option : none ) when( @sort = box ){
-	-webkit-box-shadow( @option );
-	box-shadow( @option );
+.shadow( @sort : box, @option : none ) when( @sort=box ){
+	-webkit-box-shadow: @option;
+	box-shadow: @option;
 }
-.shadow( @sort : box, @option : none ) when( @sort = text ){
-	-webkit-text-shadow( @option );
-	text-shadow( @option );
+.shadow( @sort : box, @option : none ) when( @sort=text ){
+	-webkit-text-shadow: @option;
+	text-shadow: @option;
 }
 .borderImage( @option : "url(/i/border.png) 30 30 30 30 round round" ){
 	border-image: ~"@{option}";
