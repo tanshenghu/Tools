@@ -44,9 +44,15 @@ var tsh_js_key = $.tsh.remark.key,
 		"other" : "<label>\/\/ 还有一些其它的方法，没有挂接在tsh下面，对原生的对象的一些扩展。如下：<br> String &lt; trim(),rtrim(','),ltrim('|') &gt; 参数都是可选，如果填写参数就是找到那个字符再删除<br> Array &lt; delVal(val, repeat),clearRepeat(),toObject()将数组转伪数组 &gt; <br> window &lt; getComputedStyle(obj)['color'] &gt; <br> Date &lt; new Date().format('yyyy年MM月dd hh:mm:ss')这个扩展方法是在网上摘抄下来的 &gt; <br> Object &lt; toArray() 将伪数组转数组 &gt;</label>"
 };
 
+
 var tsh_js_show_demo = function( key ){
 	
 	$('#tsh_js_show_demo').remove();
+	
+	var recordCount = 0;
+	for(var i in tsh_js_demo){
+		recordCount++;
+	}
 	
 	var htmlStr = '<div id="tsh_js_show_demo">\
 	<style scoped="scoped">\
@@ -57,7 +63,7 @@ var tsh_js_show_demo = function( key ){
 	
 	htmlStr += tsh_js_demo[key] || '<h2>\u6CA1\u6709\u67E5\u627E\u5230<b class="green">'+key+'</b>\uFF0C\u8BF7\u6CE8\u610F\u5927\u5C0F\u5199\u6216\u8054\u7CFB\u4F5C\u8005<a target=blank class=blue href=http://b.qq.com/webc.htm?new=0&sid=511568692&o=tanshenghu.com&q=7>TanShenghu</a></h2>';
 	
-	htmlStr += '</div>';
+	htmlStr += '</div><p style="color:red;margin-top:15px;">文档中共记录着'+ recordCount +'个调用方法</p>';
 	$('body').children().eq(0).before( htmlStr );
 	
 }( tsh_js_key || 'other' );
