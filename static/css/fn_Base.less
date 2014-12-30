@@ -15,6 +15,12 @@
 	color: @fcolor;
 }
 
+.lh( @height ){
+	// 高度与行高同时定义
+	height: @height;
+	line-height: @height;
+}
+
 .border( @border-weight : 1px, @border-style : solid, @border-color : #ccc ){
 	border: @arguments;
 	box-sizing: border-box;
