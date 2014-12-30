@@ -63,7 +63,7 @@ var tsh_js_show_demo = function( key ){
 	
 	htmlStr += tsh_js_demo[key] || '<h2>\u6CA1\u6709\u67E5\u627E\u5230<b class="green">'+key+'</b>\uFF0C\u8BF7\u6CE8\u610F\u5927\u5C0F\u5199\u6216\u8054\u7CFB\u4F5C\u8005<a target=blank class=blue href=http://b.qq.com/webc.htm?new=0&sid=511568692&o=tanshenghu.com&q=7>TanShenghu</a></h2>';
 	
-	htmlStr += '</div><p style="color:red;margin-top:15px;">文档中共记录着'+ recordCount +'个调用方法</p>';
+	htmlStr += '<p style="color:red;margin-top:15px;">文档中共记录着'+ recordCount +'个调用方法，其中包括common,other两个特殊的</p></div>';
 	$('body').children().eq(0).before( htmlStr );
 	
 }( tsh_js_key || 'other' );
