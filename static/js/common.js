@@ -144,7 +144,7 @@ JS Document
 			  way是配合selector特殊筛选的参数，布尔值默认为true
 			  Encode是编码方法。可传入常用的三种编码中的任意一种都行
 	*/
-	tsh.getFormField = function( param ){
+	tsh.formRequest = function( param ){
 		if ( !(param instanceof Object) ) this.log( 'parameter '+param+' error' );
 
 			var form = checkJqObject( param.form ),
@@ -227,7 +227,7 @@ JS Document
 	/*
 		 考虑到 如：兴趣、爱好之类 checkbox同name属性，最终需要组合成数组对象
 	*/
-	tsh.getFormField.getCheckboxVal = function(form, checkName){
+	tsh.formRequest.getCheckboxVal = function(form, checkName){
 			var resultObj = {},
 				getVal    = [],
 				decoll    = arguments[2];
@@ -258,7 +258,7 @@ JS Document
 			return resultObj;
 	};
 	// 对form表单获取数据的扩展，主要是对tr行获取数据的扩展
-	tsh.getFormField.getLineVals = function( trs ){
+	tsh.formRequest.getLineVals = function( trs ){
 		trs = $( trs );
 		var result = [];
 		trs.each(function(){
@@ -618,7 +618,7 @@ JS Document
 	};
 	
 	// 获取 url 参数   想了一下还是最终返回一个对象比较好。把全部集合返回出去让开发自己挑
-	tsh.getUrlParam = function(){
+	tsh.request = function(){
 		var result = {},
 			searchstr = arguments[0] ? arguments[0]+''.substring(arguments[0]+''.indexOf('?')) : document.location.search;
 		searchstr = searchstr.ltrim();
