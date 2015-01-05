@@ -28,10 +28,12 @@ JS Document
 	tsh.browserMsg = win.navigator.userAgent;
 	tsh.browserAppName = navigator.appName; // 返回浏览器的代码名
 	tsh.browserAppVersion  = navigator.appVersion; // 浏览器版本号
-	//tsh.isIE = (!+[1,]); // 不能用这个做ie的判断条件了，因为ie8以后已经修复这个问题了
-	tsh.isIE = /msie/img.test( tsh.browserMsg );
 	tsh.IEDocMode = document.documentMode;
 	tsh.useBrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
+	tsh.ltIE8 = (!+[1,]); // 不能用这个做ie的判断条件了，因为ie8以后已经修复这个问题了
+	// 低于ie10的浏览器包括ie的文档模式
+	tsh.isIE9 = ~~tsh.useBrowser.replace(/IE/i,'')>0 && ~~tsh.useBrowser.replace(/IE/i,'')<10 && tsh.IEDocMode<10;
+	tsh.isIE = /msie/img.test( tsh.browserMsg );
 	tsh.setCookies = function(key, val){
 		var saveCookieStr='',setOutTime=arguments[2],saveDay;
 		saveCookieStr = key+'='+escape(val);
@@ -407,8 +409,7 @@ JS Document
 	};
 	// 低版本的ie placeholder属性
 	tsh.placeholder = function(){
-		var isie = ~~$.tsh.usebrowser.replace('IE','');
-		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
+		if( this.isIE9 ){
 			$(':text[placeholder],textarea[placeholder]').each(function(ele, i){
 				var thisObj = $(ele),
 				// label 这块的样式由于扩展与优先级的问题没有写死，用placeholder样式自定义吧...
@@ -437,9 +438,7 @@ JS Document
 	};
 	// 自定义 radio,checkbox框
 	tsh.customCheckbox = function(){
-		var isie = ~~$.tsh.usebrowser.replace('IE','');
-		
-		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
+		if( this.isIE9 ){
 			$('.custom-checkbox').on('change', function(){
 				if ( $(this).prop('checked') ){
 					$(this).parent().addClass('checked');
@@ -649,13 +648,64 @@ JS Document
 	};
 	
 	// ie textarea的maxlength
-	$.tsh.ieTextMaxLen = function(){
-		var isie = ~~$.tsh.usebrowser.replace('IE','');
-		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
-			$('textarea[maxlength]').on('propertychange', function(){
-				alert(33);
+	/*tsh.ieTextMaxLen = function(){
+		if( this.isIE9 ){
+			$('textarea[maxlength]').on('propertychange', function(ev){
+				var thisObj = $(this), maxlen = ~~thisObj.attr('maxlength'), thisVal = thisObj.val();
+				if( thisVal.length>=maxlen ){
+					thisObj.val( thisVal.substring(0, maxlen) );
+				}
 			});
 		};
+	};*/
+	//   这种方法ie内存溢出了，行不通，明天改一下，然后明天还要把货币千位符加上去
+	tsh.inputSort = function(){
+		var This = this,
+			input_sort = {
+				number : function(obj){
+					var _input = obj, val = _input.value;
+					_input.value = val.replace(/\D/img,'');
+				},
+				char : function(obj){
+					var _input = obj, val = _input.value;
+					_input.value = val.replace(/[^A-Za-z]/img,'');
+				},
+				chinese : function(obj){
+					var _input = obj, val = _input.value;
+					_input.value = val.replace(/[^\u4e00-\u9fa5]/img,'');
+				},
+				maxlength : function(obj){
+					var _input = obj, val = _input.value, maxlen = $(_input).attr('maxlength');
+					if ( val.length > maxlen ){
+						_input.value = val.substring(0, maxlen);
+					}
+				}
+		};
+		$('input[isort],textarea[isort]').each(function(Iele, ele){
+			//var _event = $.browser.msie ? this.onpropertychange : this.oninput;  在这里IE浏览器堆栈溢出,需想办法解决
+			
+			var sortchange = function(){
+					var _input = this, _sort = _input.getAttribute('isort');
+					switch(_sort){
+						case 'number': input_sort.number(_input); break;
+						case 'char': input_sort.char(_input); break;
+						case 'chinese': input_sort.chinese(_input); break;
+						case 'maxlength': input_sort.maxlength(_input); break;
+					}
+				
+			};
+
+			if( This.ltIE8 ){
+				ele.onpropertychange = sortchange;
+			}else{
+				// ie9 开始支持oninput方法
+				if ( !(This.useBrowser.replace('IE','')>9 && $(ele).attr('isort')==='maxlength') ){
+					ele.oninput = sortchange;
+				}
+				
+			}
+
+		});
 	};
 	// 接口 绑定至jquery下面
 	$.tsh = tsh;
@@ -860,7 +910,7 @@ JS Document
 	*/
 	$(function(){
 		// ie10以下textarea的maxlength属性
-		$.tsh.ieTextMaxLen();
+		$.tsh.inputSort();
 		// ie10以下输入框的placeholder属性
 		$.tsh.placeholder();
 		//
