@@ -618,7 +618,7 @@ JS Document
 	};
 	
 	// 获取 url 参数   想了一下还是最终返回一个对象比较好。把全部集合返回出去让开发自己挑
-	tsh.request = function(){
+	tsh.getRequest = function(){
 		var result = {},
 			searchstr = arguments[0] ? arguments[0]+''.substring(arguments[0]+''.indexOf('?')) : document.location.search;
 		searchstr = searchstr.ltrim();

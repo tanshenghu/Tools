@@ -36,7 +36,7 @@ var tsh_js_key = $.tsh.remark.key,
 		"emptyEle" : "<label>\/\/ 用于清空文本或者div等里面的内容</label><p class='fnbox'>$.tsh.emptyEle('.myform', '.jq-empty');\/\/第一个参数必选，第二个可选(默认需要在需要清空的元素上定义class=jq-empty)</p>",
 		"dropDown" : "<label>\/\/ 个性下拉框</label><p class='fnbox'>$.tsh.dropDown('.dropdownbox');\/\/第一个可选(默认需要在下拉框外层元素上定义class=dropdownbox，然后下拉层的class预定为downcontent)，然后还提供了一个回调的方法，因为这个方法是个公用调用的方法，所以回调需要用.data('dropdown',{callback:function(){函数体内this指向当前下拉框被点击的a标签元素}})绑定至某个下拉框的标签元素上</p>",
 		"popupBox" : "<label>\/\/ 简单的弹出层</label><p class='fnbox'>$.tsh.popupBox({hand:'.showpop',box:'.popbox',cover:true,zindex:1000,width:320,height:120,callback:function(box){...}});\/\/所有参数均列出，比较的简单不做详解了...回调函数的this指向原生的hand，第一个参数指向box <br>另外想要弄个关闭按钮就在按钮上加class=closeMe</p>",
-		"request" : "<label>\/\/ 获取url中的参数</label><p class='fnbox'>$.tsh.getUrlParam( url )['id'];\/\/第一个参数可选，默认是当前的url地址，注意：方法最终返回对象</p>",
+		"getRequest" : "<label>\/\/ 获取url中的参数</label><p class='fnbox'>$.tsh.getRequest( url )['id'];\/\/第一个参数可选，默认是当前的url地址，注意：方法最终返回对象</p>",
 		"checkTab" : "<label>\/\/ tab选项卡切换</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
 		
 		"common" : "<label>\/\/ 此功能开发于2014-12-21 gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能 <br> $('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>gridsort.sort( 'tbody', idx, 'asc' );<br>}), <br> ObjectToArray===>将伪数组转数组.fnTsh.common.ObjectToArray({'0':'a','length':1});</label>",
