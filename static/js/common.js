@@ -647,6 +647,16 @@ JS Document
 			};	
 		});
 	};
+	
+	// ie textarea的maxlength
+	$.tsh.ieTextMaxLen = function(){
+		var isie = ~~$.tsh.usebrowser.replace('IE','');
+		if( isie>0 && ( $.tsh.IEDocMode<10 || $.tsh.IEDocMode==='undefined' ) ){
+			$('textarea[maxlength]').on('propertychange', function(){
+				alert(33);
+			});
+		};
+	};
 	// 接口 绑定至jquery下面
 	$.tsh = tsh;
 	
@@ -848,7 +858,14 @@ JS Document
 	/*
 		自执行函数
 	*/
-	
+	$(function(){
+		// ie10以下textarea的maxlength属性
+		$.tsh.ieTextMaxLen();
+		// ie10以下输入框的placeholder属性
+		$.tsh.placeholder();
+		//
+		
+	});
 	
 	
 })(jQuery, window);
