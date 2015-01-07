@@ -50,15 +50,11 @@ a{
 	outline:none;
 	text-decoration:none;
 	hide-focus:~"expression(this.hideFocus=true)";
-	
-	&:hover{
-		text-decoration:underline;
-	}
-	
-	img{
-		border:none;
-	}
-
+}
+img{
+	border:none;
+	// html5 图片与父级底部边距问题，解决方法有。低级设置font-size:0,图片设置vertical-align,displace:block,三种方法，最土的方法就是定义父级宽高并溢出隐藏
+	.middle;
 }
 input,textarea{
 	.pl( 7px );
