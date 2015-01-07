@@ -215,7 +215,11 @@
 		width:18px;
 		height:18px;
 	}
-	&.checked i,.custom-checkbox:checked + i{
+	// Fuck ie不支持css3样式，居然也不能写一块儿，只好分开写
+	&.checked i{
+		.bg( @checkedBg );
+	}
+	.custom-checkbox:checked + i{
 		.bg( @checkedBg );
 	}
 }
