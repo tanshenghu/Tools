@@ -31,8 +31,9 @@ JS Document
 	tsh.IEDocMode = document.documentMode;
 	tsh.useBrowser = tsh.browserMsg.match(/msie 6./img) ? 'IE6' : tsh.browserMsg.match(/msie 7./img) ? 'IE7': tsh.browserMsg.match(/msie 8./img) ? 'IE8' : tsh.browserMsg.match(/msie 9./img) ? 'IE9' : tsh.browserMsg.match(/msie 10./img) ? 'IE10' : tsh.browserMsg.match(/msie 11./img) ? 'IE11' : tsh.browserMsg.match(/firefox/img) ? 'firefox' : 'webkit';
 	tsh.ltIE8 = (!+[1,]); // 不能用这个做ie的判断条件了，因为ie8以后已经修复这个问题了
-	// 低于ie10的浏览器包括ie的文档模式
-	tsh.isIE9 = ~~tsh.useBrowser.replace(/IE/i,'')>0 && ~~tsh.useBrowser.replace(/IE/i,'')<10 && tsh.IEDocMode<10;
+	// 低于ie8的浏览器包括ie的文档模式
+	tsh.isIE8 = ~~tsh.useBrowser.replace(/IE/i,'')>0 && ~~tsh.useBrowser.replace(/IE/i,'')<9 && (tsh.IEDocMode<9 || !tsh.IEDocMode);
+	tsh.isIE9 = ~~tsh.useBrowser.replace(/IE/i,'')>0 && ~~tsh.useBrowser.replace(/IE/i,'')<10 && (tsh.IEDocMode<10 || !tsh.IEDocMode);
 	tsh.isIE = /msie/img.test( tsh.browserMsg );
 	tsh.setCookies = function(key, val){
 		var saveCookieStr='',setOutTime=arguments[2],saveDay;
@@ -647,45 +648,38 @@ JS Document
 		});
 	};
 	
-	// ie textarea的maxlength
-	/*tsh.ieTextMaxLen = function(){
-		if( this.isIE9 ){
-			$('textarea[maxlength]').on('propertychange', function(ev){
-				var thisObj = $(this), maxlen = ~~thisObj.attr('maxlength'), thisVal = thisObj.val();
-				if( thisVal.length>=maxlen ){
-					thisObj.val( thisVal.substring(0, maxlen) );
-				}
-			});
-		};
-	};*/
 	//   这种方法ie内存溢出了，行不通，明天改一下，然后明天还要把货币千位符加上去
 	tsh.inputSort = function(){
 		var This = this,
 			input_sort = {
 				number : function(obj){
-					var _input = obj, val = _input.value;
-					_input.value = val.replace(/\D/img,'');
+					var _input = obj, val = _input.val();
+					_input.val( val.replace(/\D/img,'') );
 				},
 				char : function(obj){
-					var _input = obj, val = _input.value;
-					_input.value = val.replace(/[^A-Za-z]/img,'');
+					var _input = obj, val = _input.val();
+					_input.val( val.replace(/[^A-Za-z]/img,'') );
 				},
 				chinese : function(obj){
-					var _input = obj, val = _input.value;
-					_input.value = val.replace(/[^\u4e00-\u9fa5]/img,'');
+					var _input = obj, val = _input.val();
+					_input.val( val.replace(/[^\u4e00-\u9fa5]/img,'') );
 				},
 				maxlength : function(obj){
-					var _input = obj, val = _input.value, maxlen = $(_input).attr('maxlength');
+					// ie9以后就开始支持maxlength属性
+					if ( !( ~~This.useBrowser.replace('IE','')>9 || ~~This.useBrowser.replace('IE','')<1 ) ){
+						return;
+					}
+					var _input = obj, val = _input.val(), maxlen = _input.attr('maxlength');
 					if ( val.length > maxlen ){
-						_input.value = val.substring(0, maxlen);
+						_input.val( val.substring(0, maxlen) );
 					}
 				}
 		};
 		$('input[isort],textarea[isort]').each(function(Iele, ele){
 			//var _event = $.browser.msie ? this.onpropertychange : this.oninput;  在这里IE浏览器堆栈溢出,需想办法解决
-			
+			ele = $(ele);
 			var sortchange = function(){
-					var _input = this, _sort = _input.getAttribute('isort');
+					var _input = ele, _sort = _input.attr('isort');
 					switch(_sort){
 						case 'number': input_sort.number(_input); break;
 						case 'char': input_sort.char(_input); break;
@@ -696,12 +690,16 @@ JS Document
 			};
 
 			if( This.ltIE8 ){
-				ele.onpropertychange = sortchange;
+				$(ele).on('keyup', function(){
+					sortchange();
+				}).on('blur', function(){
+					sortchange();
+				});
 			}else{
 				// ie9 开始支持oninput方法
-				if ( !(This.useBrowser.replace('IE','')>9 && $(ele).attr('isort')==='maxlength') ){
-					ele.oninput = sortchange;
-				}
+				ele.on('input', function(){
+					sortchange();
+				});
 				
 			}
 
@@ -900,6 +898,33 @@ JS Document
 			return This.currentStyle ? This.currentStyle : getComputedStyle(This,null);
 		};
 	}
+	// 这个方法是以前支付宝海外转运项目里拿下来的代码。一行一行解读一下代码吧...
+	fnTsh.common.milliFormat = function(s){
+		// 首先转string类型，保证下面的replace,test等方法执行
+        s = s + '';
+        
+        // s字符串只能出现数字与.这两种字符，否则return 无效的value中止下面的操作
+        if(/[^0-9\.]/.test(s)) {
+            return "invalid value";
+        }
+        
+        // 这三句慢慢点看，它的操作就是在金额后面添加一个.00的操作，并且最终把.00换成,00
+        s = s.replace(/^(\d*)$/,"$1.");
+        s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");
+        s = s.replace(".",",");
+        
+        // 下面的是一个while循环，虽然不怎么喜欢用while，但是在类似的这种场景下while有很大的优势。细看正则与不断的循环就不难了解了！这也是整个过程最重要的环节所在
+        var re = /(\d)(\d{3},)/;
+        while(re.test(s)){
+            s = s.replace(re,"$1,$2");
+        }
+        
+        // 上面循环完成之后，再将最后的,00换回.00
+        s = s.replace(/,(\d\d)$/, ".$1");
+        
+        // 如果用户输入.开头的字符，将替换成0.  觉得作者把代码写得比较的完善...考虑比较全
+        return s.replace(/^\./, "0.");
+    };
 	/*
 		对象挂接
 	*/

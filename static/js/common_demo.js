@@ -40,8 +40,9 @@ var tsh_js_key = $.tsh.remark.key,
 		"popupBox" : "<label>\/\/ 简单的弹出层</label><p class='fnbox'>$.tsh.popupBox({hand:'.showpop',box:'.popbox',cover:true,zindex:1000,width:320,height:120,callback:function(box){...}});\/\/所有参数均列出，比较的简单不做详解了...回调函数的this指向原生的hand，第一个参数指向box <br>另外想要弄个关闭按钮就在按钮上加class=closeMe</p>",
 		"getRequest" : "<label>\/\/ 获取url中的参数</label><p class='fnbox'>$.tsh.getRequest( url )['id'];\/\/第一个参数可选，默认是当前的url地址，注意：方法最终返回对象</p>",
 		"checkTab" : "<label>\/\/ tab选项卡切换</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
+		"inputSort" : "<label>\/\/ 这个方法里面共有四个小的方法，分别：number，char，chinese，maxlength</label><p class='fnbox'>调用方法：在input,textarea上定义一个isort属性，值为：number，char，chinese，maxlength其中一个即可，不支持多个。</p>",
 		
-		"common" : "<label>\/\/ 此功能开发于2014-12-21 gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能 <br> $('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>gridsort.sort( 'tbody', idx, 'asc' );<br>}), <br> ObjectToArray===>将伪数组转数组.fnTsh.common.ObjectToArray({'0':'a','length':1});</label>",
+		"common" : "<label>\/\/ 此功能开发于2014-12-21 gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能 <br> $('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>gridsort.sort( 'tbody', idx, 'asc' );<br>}), <br> ObjectToArray===>将伪数组转数组.fnTsh.common.ObjectToArray({'0':'a','length':1}); <br> milliFormat( money ); // 金额千分位正则替换</label>",
 		
 		"other" : "<label>\/\/ 还有一些其它的方法，没有挂接在tsh下面，对原生的对象的一些扩展。如下：<br> String &lt; trim(),rtrim(','),ltrim('|') &gt; 参数都是可选，如果填写参数就是找到那个字符再删除<br> Array &lt; delVal(val, repeat),clearRepeat(),toObject()将数组转伪数组 &gt; <br> window &lt; getComputedStyle(obj)['color'] &gt; <br> Date &lt; new Date().format('yyyy年MM月dd hh:mm:ss')这个扩展方法是在网上摘抄下来的 &gt; <br> Object &lt; toArray() 将伪数组转数组 &gt;</label>"
 };
