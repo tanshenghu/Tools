@@ -440,10 +440,20 @@ JS Document
 	// 自定义 radio,checkbox框
 	tsh.customCheckbox = function(){
 		if( this.isIE9 ){
-			$('.custom-checkbox').on('change', function(){
-				if ( $(this).prop('checked') ){
-					$(this).parent().addClass('checked');
-				}
+			$('body').on('change','.custom-checkbox', function(){
+				var thisObj = $(this), type = thisObj.attr('type').toLowerCase(), name = thisObj.attr('name');
+					if ( type==='checkbox' ){
+						if ( thisObj.prop('checked') ){
+							thisObj.parent().addClass('checked');
+						}else{
+							thisObj.parent().removeClass('checked');
+						}
+					}else if( type==='radio' ){
+						if ( name ){
+							$(':radio[name="'+name+'"]').parent().removeClass('checked');
+						}
+						thisObj.parent().addClass('checked');
+					}
 			});
 		}
 	};
@@ -934,11 +944,13 @@ JS Document
 		自执行函数
 	*/
 	$(function(){
+		
 		// ie10以下textarea的maxlength属性
 		$.tsh.inputSort();
 		// ie10以下输入框的placeholder属性
 		$.tsh.placeholder();
-		//
+		// 个性化的checkbox,radio
+		$.tsh.customCheckbox();
 		
 	});
 	
