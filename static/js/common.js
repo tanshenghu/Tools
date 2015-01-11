@@ -718,13 +718,12 @@ JS Document
 	// 接口 绑定至jquery下面
 	$.tsh = tsh;
 	
-	fnTsh.common = {};
 	/*
 	  2014-12-21 编写此前端列表排序的方法。
 	  写此方法是因为做财资系统项目可能需要这个排序功能，但这个功能最好是后端来做排序比较准确。
 	  前端来做的优点是减少数据请求减小服务器压力
 	*/
-	fnTsh.common.gridsort = {
+	fnTsh.gridsort = {
 		
 		sort : function( tbody, idx, srt ){
 			this.srt = srt || 'desc';
@@ -872,7 +871,7 @@ JS Document
 			push.apply(obj, this ); 
 			return obj;
 	};
-	fnTsh.common.ObjectToArray = function( obj ){
+	fnTsh.ObjectToArray = function( obj ){
 		var slice = Array.prototype.slice;
 			// 为防止报错，检查对象是否有length属性
 			if ( this.length === undefined ){return false;}
@@ -909,7 +908,7 @@ JS Document
 		};
 	}
 	// 这个方法是以前支付宝海外转运项目里拿下来的代码。一行一行解读一下代码吧...
-	fnTsh.common.milliFormat = function(s){
+	fnTsh.milliFormat = function(s){
 		// 首先转string类型，保证下面的replace,test等方法执行
         s = s + '';
         
@@ -938,7 +937,7 @@ JS Document
 	/*
 		对象挂接
 	*/
-	win.common = fnTsh;
+	win.fnTsh = fnTsh;
 	
 	/*
 		自执行函数
