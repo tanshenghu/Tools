@@ -43,7 +43,7 @@ var tsh_js_key = $.tsh.remark.key,
 		"checkTab" : "<label>\/\/ tab选项卡切换</label><p class='fnbox'>$.tsh.checkTab({hand:'ul li',box:'.tabCon .infobox',evt:'click',callback:function(){...}});\/\/所有参数均列出，比较的简单不做详解了</p>",
 		"inputSort" : "<label>\/\/ 这个方法里面共有四个小的方法，分别：number，char，chinese，maxlength</label><p class='fnbox'>调用方法：在input,textarea上定义一个isort属性，值为：number，char，chinese，maxlength其中一个即可，不支持多个。</p>",
 		
-		"common" : "<label>\/\/ 此功能开发于2014-12-21 gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能 <br> $('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>window.fnTsh.gridsort.sort( 'tbody', idx, 'asc' );<br>}), <br> ObjectToArray===>将伪数组转数组.fnTsh.ObjectToArray({'0':'a','length':1}); <br> fnTsh.milliFormat( money ); // 金额千分位正则替换</label>",
+		"common" : "<label>\/\/ 此功能开发于2014-12-21 gridsort===>列表排序功能，这个是一个json对象下面添加了很多小函数来一起完成排序的功能 <br> $('thead th').on('click', function(){<br>// 第三个可选参数的值：desc asc<br>var idx = $( this ).index();<br>window.fnTsh.gridsort.sort( 'tbody', idx, 'asc' );<br>}), <br> ObjectToArray===>将伪数组转数组.fnTsh.ObjectToArray({'0':'a','length':1}); <br> fnTsh.milliFormat( money ); // 金额千分位正则替换 <br> 2015-01-14编写验证控件，该用方法window.fnTsh.validate( 'myform' );// 验证规则、提示语都配置在页面标签中。还可以自己添加自定义规则：window.fnTsh.validate.rules.newrules = function( ele, curRules ){...}，以后再优化代码，尽量做得更好吧。</label>",
 		
 		"other" : "<label>\/\/ 还有一些其它的方法，没有挂接在tsh下面，对原生的对象的一些扩展。如下：<br> String &lt; trim(),rtrim(','),ltrim('|') &gt; 参数都是可选，如果填写参数就是找到那个字符再删除<br> Array &lt; delVal(val, repeat),clearRepeat(),toObject()将数组转伪数组 &gt; <br> window &lt; getComputedStyle(obj)['color'] &gt; <br> Date &lt; new Date().format('yyyy年MM月dd hh:mm:ss')这个扩展方法是在网上摘抄下来的 &gt; <br> Object &lt; toArray() 将伪数组转数组 &gt;</label>"
 };

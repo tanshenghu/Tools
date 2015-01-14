@@ -914,7 +914,8 @@ JS Document
         
         // s字符串只能出现数字与.这两种字符，否则return 无效的value中止下面的操作
         if(/[^0-9\.]/.test(s)) {
-            return "invalid value";
+            //return "invalid value";
+            return s;
         }
         
         // 这三句慢慢点看，它的操作就是在金额后面添加一个.00的操作，并且最终把.00换成,00
@@ -934,6 +935,149 @@ JS Document
         // 如果用户输入.开头的字符，将替换成0.  觉得作者把代码写得比较的完善...考虑比较全
         return s.replace(/^\./, "0.");
     };
+    fnTsh.validate = {
+		/* Author: TanShenghu  TSH
+		   Update: 15-01-14
+		   表单验证不怎么好用，哎，还是自己动手写个吧！代码有时间再做优化
+		
+			写扩展：
+			window.fnTsh.rules.tsh = function(ele,curRules){
+				var value = $(ele).val();
+				var result = /tanshenghu/.test( value );
+				this( result, ele, curRules );
+				return result;
+			}
+		
+		*/
+
+		init: function( form ){
+			this.form = $( form );
+			this.blur();
+			return this.getrules() && this.form.find('.formTip').length===0;
+		},
+		getele: function(){
+			return this.form.find('[data-need]');
+		},
+		getrules: function(){
+			var This = this, eles = this.getele(), result = true;
+			eles.each(function(i, ele){
+				result = This.verify( ele );
+			});
+			
+			return result;
+		},
+		verify: function( ele ){
+			var need = $(ele).data('need'), result = true;
+				if( need ){
+					var arr = need.split(',');
+					for(var i=0,l=arr.length; i<l; i++){
+						// 第一个参数是规则，当前验证节点，当前验证到N个规则
+						result = this.exeRules( arr[i], ele, i );
+						if( result===false ){
+							break;
+						}
+					}
+				}
+				
+			return result;
+				
+		},
+		exeRules: function( rls, ele, curRules ){
+			
+			if ( typeof this.rules[ rls ] === 'function' ){
+				return this.rules[ rls ].apply( this.showmsg, [ele, curRules] );
+			}else{
+				$.tsh.log('erroneous rules');
+			}
+			
+		},
+		rules: {
+			'required': function( ele, curRules ){
+				var value = $(ele).val().trim();
+				var result = value.length==0?false:true;
+				this( result, ele, curRules );
+				return result;
+			},
+			'email': function( ele, curRules ){
+				var result = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'url': function( ele, curRules ){
+				var result = /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/.test( $(ele).val() );
+				this.showmsg( result, ele, curRules );
+				return result;
+			},
+			'number': function( ele, curRules ){
+				var result = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'equalTo': function( ele, curRules ){
+				var thisObj = $(ele), eqto = $( thisObj.attr('eqto') );
+				var result = thisObj.val()===eqto.val();
+				this( result, ele, curRules );
+				return result;
+			},
+			'money': function( ele, curRules ){
+				var result = /^[0-9|,|\.]+$|^$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'date': function( ele, curRules ){
+				var result = /^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			}
+		},
+		showmsg: function( bool, ele, curRules ){
+			ele = $( ele );
+			var fbox     = ele.closest('td,.formfield'),
+				messages = ele.data('msg') ? ele.data('msg').split('|') : [];
+			
+			if( bool===false ){
+				if( fbox.find('.formTip').length ){
+					fbox.find('.formTip').first().html( '<i class="kuma-icon kuma-icon-error"></i>'+messages[ curRules ] ).attr('inputname', ele.attr('name'));
+				}else{
+					fbox.append( $('<p class="formTip"><i class="kuma-icon kuma-icon-error"></i>'+ messages[ curRules ] +'</p>').attr('inputname', ele.attr('name')) );
+				}
+			}else{
+				
+				if ( fbox.find('.formTip').attr('inputname')==ele.attr('name') ){
+					fbox.find('.formTip').remove();
+				}
+				
+			}
+		},
+		blurIdx : 0,
+		blur: function(){
+			
+			if( this.blurIdx<1 ){
+				var This = this, eles = this.getele();
+				eles.each(function(){
+					var thisObj = $(this), iname = thisObj.prop('nodeName').toLowerCase(), o={text:'blur',textarea:'blur',select:'select',checkbox:'change',radio:'change'}, cur;
+					if( iname==='input' ){
+						cur = thisObj.attr('type');
+					}else{
+						cur = iname;
+					}
+					// 
+					$('body').on(o[cur], 'form [data-need]', function(){
+						
+						This.verify( this );
+						
+					});
+					
+				});
+				//=========fuck 阿里下拉框组件。为此验证还得另外写代码做付出===========
+				
+			}
+			
+			
+			this.blurIdx++;
+		}
+		
+};
 	/*
 		对象挂接
 	*/
