@@ -1009,7 +1009,49 @@ JS Document
 				return result;
 			},
 			'number': function( ele, curRules ){
-				var result = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( $(ele).val() );
+				//var result = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( $(ele).val() );
+				var result = !isNaN( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'phone': function( ele, curRules ){
+				var result = /^1[3|5|7|8|][0-9]{9}$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'tel': function( ele, curRules ){
+				var result = /^(0\d{2,3}-)?[1-9]\d{6,7}(-\d{1,4})?$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'QQ': function( ele, curRules ){
+				var result = /^[1-9]\d{5,10}$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'Hanzi': function( ele, curRules ){
+				var result = /^[\u4e00-\u9fa5]+$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'zipcode': function( ele, curRules ){
+				var result = /^[1-9]\d{5}$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'ID': function( ele, curRules ){
+				var result = /^[1-9]\d{16}(\d|X)$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'IP': function( ele, curRules ){
+				var result = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/.test( $(ele).val() );
+				this( result, ele, curRules );
+				return result;
+			},
+			'port': function( ele, curRules ){
+				var value = $(ele).val();
+				var result = (value>0 && value<65536);
 				this( result, ele, curRules );
 				return result;
 			},
