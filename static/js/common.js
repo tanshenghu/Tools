@@ -810,8 +810,8 @@ JS Document
 			});
 			
 			NumArr.sort(function(a, b){
-				a = parseFloat( This.isDate(a) );
-				b = parseFloat( This.isDate(b) );
+				a = parseFloat( This.filter(a) );
+				b = parseFloat( This.filter(b) );
 				if ( This.srt === 'asc' ){
 					if ( a < b ){
 						return -1;
@@ -836,14 +836,9 @@ JS Document
 			}
 			
 		},
-		// 判断一个值是否日历 处理并返回数字
-		isDate : function( val ){
-			//  
-			var reg = /\d+\-\d+|\d+\/\d+|\d+年\d+/g;
-			if ( reg.test(val) ){
-				val = val.replace(/-|\//g,'');
-			}
-			return val;
+		// 用于字符过滤操作，把日期、千分位等里面的特殊符号过滤掉再比较大小
+		filter: function( val ){
+			return val.replace(/-|\/|:|\s|,/g,'');
 		},
 		// 根据大小条件 组装json
 		newsortobj : function( trs, nums ){
