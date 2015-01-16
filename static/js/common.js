@@ -985,90 +985,82 @@ JS Document
 		exeRules: function( rls, ele, curRules ){
 			
 			if ( typeof this.rules[ rls ] === 'function' ){
-				return this.rules[ rls ].apply( this.showmsg, [ele, curRules] );
+				var result = this.rules[ rls ].apply( win, [ele] );
+				// 把验证结果 抛给showmsg方法去处理,  下次抽时间把msg这块的信息尽量配置在js中
+				this.showmsg( result, ele, curRules );
+				return result;
 			}else{
-				$.tsh.log('erroneous rules');
+				$.tsh.log(rls+' erroneous rules');
 			}
 			
 		},
 		rules: {
-			'required': function( ele, curRules ){
+			'required': function( ele ){
 				var value = $(ele).val().trim();
 				var result = value.length==0?false:true;
-				this( result, ele, curRules );
 				return result;
 			},
-			'email': function( ele, curRules ){
+			'email': function( ele ){
 				var result = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/i.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'url': function( ele, curRules ){
+			'url': function( ele ){
 				var result = /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/.test( $(ele).val() );
-				this.showmsg( result, ele, curRules );
 				return result;
 			},
-			'number': function( ele, curRules ){
+			'number': function( ele ){
 				//var result = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test( $(ele).val() );
 				var result = !isNaN( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'phone': function( ele, curRules ){
+			'decimals': function( ele ){
+				var result = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test( $(ele).val() );
+				return result;
+			},
+			'phone': function( ele ){
 				var result = /^1[3|5|7|8|][0-9]{9}$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'tel': function( ele, curRules ){
+			'tel': function( ele ){
 				var result = /^(0\d{2,3}-)?[1-9]\d{6,7}(-\d{1,4})?$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'QQ': function( ele, curRules ){
+			'QQ': function( ele ){
 				var result = /^[1-9]\d{5,10}$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'Hanzi': function( ele, curRules ){
+			'Hanzi': function( ele ){
 				var result = /^[\u4e00-\u9fa5]+$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'zipcode': function( ele, curRules ){
+			'zipcode': function( ele ){
 				var result = /^[1-9]\d{5}$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'ID': function( ele, curRules ){
+			'ID': function( ele ){
 				var result = /^[1-9]\d{16}(\d|X)$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'IP': function( ele, curRules ){
+			'IP': function( ele ){
 				var result = /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'port': function( ele, curRules ){
+			'port': function( ele ){
 				var value = $(ele).val();
 				var result = (value>0 && value<65536);
-				this( result, ele, curRules );
 				return result;
 			},
-			'equalTo': function( ele, curRules ){
+			'equalTo': function( ele ){
 				var thisObj = $(ele), eqto = $( thisObj.attr('eqto') );
 				var result = thisObj.val()===eqto.val();
-				this( result, ele, curRules );
 				return result;
 			},
-			'money': function( ele, curRules ){
+			'money': function( ele ){
 				var result = /^[0-9|,|\.]+$|^$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			},
-			'date': function( ele, curRules ){
+			'date': function( ele ){
 				var result = /^\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2}$/.test( $(ele).val() );
-				this( result, ele, curRules );
 				return result;
 			}
 		},
