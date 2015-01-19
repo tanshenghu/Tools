@@ -966,7 +966,7 @@ JS Document
 		};
 	}
 	// 这个方法是以前支付宝海外转运项目里拿下来的代码。一行一行解读一下代码吧...
-	fnTsh.milliFormat = function(s){
+	fnTsh.milliFormat = function(s, decimal){
 		// 首先转string类型，保证下面的replace,test等方法执行
         s = s + '';
         
