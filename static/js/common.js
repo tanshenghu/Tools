@@ -969,7 +969,8 @@ JS Document
 	fnTsh.milliFormat = function(s, decimal){
 		// 首先转string类型，保证下面的replace,test等方法执行
         s = s + '';
-        
+        // 发现input的keyup事件时，有bug需要过虑逗号
+        s = s.replace(/,/, '');
         // s字符串只能出现数字与.这两种字符，否则return 无效的value中止下面的操作
         if(/[^0-9\.]/.test(s)) {
             //return "invalid value";
