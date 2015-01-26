@@ -968,35 +968,6 @@ JS Document
 	// 这个方法是以前支付宝海外转运项目里拿下来的代码。一行一行解读一下代码吧...
 	fnTsh.milliFormat = function(s, decimal){
 		
-		// 如果是input输入框取光标位置
-		this.milliFormat.selectionStart = function( input ){
-			 
-	        var cursurPosition = -1;
-
-	        if(input.selectionStart != undefined){
-	            cursurPosition = input.selectionStart;
-	        }else{
-	            var range = document.selection.createRange();
-	            range.moveStart("character", -input.value.length);
-	            cursurPosition= range.text.length;
-	        }
-
-	        return cursurPosition;
-		};
-		this.milliFormat.setSelectionRange = function( input, pos ){
-				
-				var cursurPosition = -1;
-
-                if(input.selectionStart != undefined){
-                    input.setSelectionRange(pos,pos);
-                }
-                else{
-                    var range = input.createTextRange();
-                    range.move("character", pos);
-                    range.select();
-                }
-		};
-		
 		// 首先转string类型，保证下面的replace,test等方法执行
         s = s + '';
         // 发现input的keyup事件时，有bug需要过虑逗号
@@ -1029,6 +1000,34 @@ JS Document
         // 如果用户输入.开头的字符，将替换成0.  觉得作者把代码写得比较的完善...考虑比较全
         return s.replace(/^\./, "0.");
     };
+    // 如果是input输入框取光标位置
+	fnTsh.milliFormat.selectionStart = function( input ){
+		 
+        var cursurPosition = -1;
+
+        if(input.selectionStart != undefined){
+            cursurPosition = input.selectionStart;
+        }else{
+            var range = document.selection.createRange();
+            range.moveStart("character", -input.value.length);
+            cursurPosition= range.text.length;
+        }
+
+        return cursurPosition;
+	};
+	fnTsh.milliFormat.setSelectionRange = function( input, pos ){
+			
+			var cursurPosition = -1;
+
+            if(input.selectionStart != undefined){
+                input.setSelectionRange(pos,pos);
+            }
+            else{
+                var range = input.createTextRange();
+                range.move("character", pos);
+                range.select();
+            }
+	};
     fnTsh.validate = {
 		/* Author: TanShenghu  TSH
 		   Update: 15-01-14
