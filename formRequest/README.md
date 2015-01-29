@@ -26,8 +26,8 @@
 	</div>
 	<div>
 		<label>性别：</label>
-		<input type="radio" name="sex" value="男">男 &nbsp; &nbsp;
-		<input type="radio" name="sex" value="女">女 &nbsp; &nbsp;
+		<input type="radio" name="sex" value="男">男
+		<input type="radio" name="sex" value="女">女
 	</div>
 	<div>
 		<label>您是否喜欢国术</label>
@@ -36,7 +36,7 @@
 			<option value="no">no</option>
 		</select>
 	</div>
-	<div>
+	<div class="hobby">
 		<label>兴趣好爱：</label>
 		<label><input type="checkbox" name="hobby" value="咏春拳">咏春拳</label> 
 		<label><input type="checkbox" name="hobby" value="陈式太极">陈式太极</label> 
@@ -84,3 +84,58 @@ formRequest({ <br>
 	way: true, <br>
 	Encode: escape <br>
 });
+
+
+## `getCheckboxVal`
+
+```javascript
+
+seajs.use(['$','formRequest'], function($, formRequest) {
+/*
+	getCheckboxVal方法属于formRequest的子方法，它主要是获取同name的属性的值(比如：兴趣爱好，多个同name的checkbox就可以用该方法)，最终以数组或者按定义的字符串形式返回
+	
+	该方法是我在聚划算部门做淘宝电影时所写。
+	
+	该方法前两个参数属必选参数，最后一个可选。该方法不仅限于checkbox，radio，就其它文本域同name也行！
+	
+	参数说明：
+			第一个参数即多个同name属性框的父元素
+			第二个参数是name名称
+			第三个参数如果不填写最终Array类型，填写返回string(数组以你传进的字符分隔)
+*/	
+	$(':button').on('click', function(){
+		
+		var param = formRequest.getCheckboxVal('#form hobby', 'hobby', ',');
+		
+	});
+	
+});
+
+```
+
+
+## `getLineVals`
+
+```javascript
+
+seajs.use(['$','formRequest'], function($, formRequest) {
+/*
+	getLineVals方法属于formRequest的子方法，它的作用主要是获取行数据，主要针对表格的tr行数据
+	
+	该方法是我在聚划算部门做淘宝电影时所写。
+	
+	参数说明：
+	        只有一个参数，同时也是必选参数，即tr行。它不局限于文本域，任何带name属性的节点都可以获取到值
+	        最终以数组嵌json的形式返回
+	
+*/
+
+	$(':button').on('click', function(){
+		
+		var param = formRequest.getLineVals('table tbody tr');
+		
+	});
+
+});
+
+```
