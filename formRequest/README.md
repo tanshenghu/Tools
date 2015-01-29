@@ -1,11 +1,14 @@
 ## `formRequest` By TanShenghu
 
----
+
 
 **formRequest方法主要用于ajax表单提交数据，它能将form表单下所有拥有name属性的文本域内容获取到并以json对象返回出来。
-<br/><br>
-> **该方法是我在支付宝做外包时所写的，因支付宝项目采用的是seajs模块化开发，js需要spm build打包压缩，
-> **如果后端哪天需要修改提交参数接收的字段名，改js代码显得比较麻烦。有了该方法后端开发同学只需要
+
+
+---
+
+> **该方法是我在支付宝做外包时所写的，因支付宝项目采用的是seajs模块化开发，js需要spm build打包压缩，<br>
+> **如果后端哪天需要修改提交参数接收的字段名，改js代码显得比较麻烦。有了该方法后端开发同学只需要<br>
 > **在VM(视图模板)修改对应文本域name属性就行了，前端无需做任何改动！
 
 ---
@@ -72,9 +75,9 @@ seajs.use(['$','formRequest'], function($, formRequest) {
 
 ## Api
 
-formRequest({
-	form: '#myform', // 必选参数，指定form表单节点，并非只能form标签，div也行。下面其它参数可选
-	selector: '[name="remark"]',
-	way: true,
-	Encode: escape
+formRequest({ <br>
+	form: '#myform', // 必选参数，指定form表单节点，并非只能form标签，div也行。下面其它参数可选 <br>
+	selector: '[name="remark"]', <br>
+	way: true, <br>
+	Encode: escape <br>
 });
