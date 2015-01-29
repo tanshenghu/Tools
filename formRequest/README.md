@@ -30,7 +30,7 @@
 	</div>
 	<div>
 		<label>您是否喜欢国术</label>
-		<select>
+		<select name="kung_fu">
 			<option value="yes">yes</option>
 			<option value="no">no</option>
 		</select>
@@ -67,6 +67,8 @@ seajs.use(['$','formRequest'], function($, formRequest) {
 		var param = formRequest({
 			form: '#myform'
 		});
+		
+		// 准备ajax提交后端...
 		
 	});
 	
