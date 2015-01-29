@@ -1,9 +1,10 @@
 ## `formRequest` By TanShenghu
 
-
+<br>
 
 **formRequest方法主要用于ajax表单提交数据，它能将form表单下所有拥有name属性的文本域内容获取到并以json对象返回出来。**
 
+<br>
 
 ---
 
@@ -75,7 +76,7 @@ seajs.use(['$','formRequest'], function($, formRequest) {
 });
 ```
 
-## Api
+## 参数说明
 
 formRequest({ <br>
 	form: '#myform', // 必选参数，指定form表单节点，并非只能form标签，div也行。下面其它参数可选 <br>
