@@ -1,4 +1,4 @@
-define("tsh/formRequest/1.0.0/formRequest-debug", [ "$-debug" ], function(require, exports, module) {
+define("tanshenghu/formRequest/1.0.0/formRequest-debug", [ "$-debug" ], function(require, exports, module) {
     var $ = jQuery = require("$-debug");
     var formRequest = function(param) {
         if (!(param instanceof Object)) {
@@ -96,5 +96,5 @@ define("tsh/formRequest/1.0.0/formRequest-debug", [ "$-debug" ], function(requir
         });
         return result;
     };
-    exports.formRequest = formRequest;
+    module.exports = formRequest;
 });

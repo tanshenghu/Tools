@@ -142,6 +142,6 @@ define(function(require, exports, module){
 		
 	};
 	
-	exports.formRequest = formRequest;
+	module.exports = formRequest;
 	
 });
