@@ -25,7 +25,7 @@ seajs.use(['$','getRequest'], function($, getRequest) {
 	var value = param.id;
 	
 	// 指定url的情况
-	var param = getRequest( 'http://www.xxx.com/index.php?id=10&name="tsh"' );
+	var param = getRequest( 'http://www.xxx.com/index.php?id=10&name=tsh' );
 	var value = param.id; // 10
 	var name  = param.name; // tsh
 	
