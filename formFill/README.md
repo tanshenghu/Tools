@@ -57,6 +57,27 @@
 ````
 
 
+## json数据
+
+
+```javascript
+{
+	"content":
+	{
+		"username":"tanshenghu",
+		"sex":"男",
+		"remark":"程序猿 - 前端攻城狮！",
+		"tblname":[
+			{"company":"炎黄新星","nature":"民营公司","people":"1000人"},
+			{"company":"中软国际","nature":"外包公司","people":"10000人"},
+			{"company":"文思海辉","nature":"外包公司","people":"10000人"}
+		]
+	},
+	"hasError":false
+}
+```
+
+
 ## javascript
 
 
@@ -68,6 +89,7 @@ seajs.use(['$','formFill'], function($, formFill) {
 		url: '/data.json', // 接口地址
 		param: {"id":10}, // 接口所需的参数
 		form: '#myform', // 填充数据的form节点
+		cite: 'content', // 数据的key名 可选参数
 		callback: function(){ } // 填充完之后该干嘛, 函数体内this指向form节点 可选参数
 	});
 	
@@ -75,7 +97,7 @@ seajs.use(['$','formFill'], function($, formFill) {
 		该方法只能面临一般情况，数据结构复杂情况还有不足之处。 
 		
 		如果数据的value值是array类型并且里面还嵌json对象的话，
-		就用formFill.filltr = function(data){ ... };
+		就用formFill.filltr = function(data){ return '...'; };
 		这个方法最好预定义，最终把拼结好的html代码以string类型返回
 	*/
 	
