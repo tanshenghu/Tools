@@ -99,27 +99,6 @@
 ````
 
 
-## json数据
-
-
-```javascript
-{
-	"content":
-	{
-		"username":"tanshenghu",
-		"sex":"男",
-		"remark":"程序猿 - 前端攻城狮！",
-		"tblname":[
-			{"company":"炎黄新星","nature":"民营公司","people":"1000人"},
-			{"company":"中软国际","nature":"外包公司","people":"10000人"},
-			{"company":"文思海辉","nature":"外包公司","people":"10000人"}
-		]
-	},
-	"hasError":false
-}
-```
-
-
 ## javascript
 
 
