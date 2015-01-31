@@ -2,7 +2,7 @@
   "family": "tanshenghu",
   "name": "getRequest",
   "version": "1.0.0",
-  "description": "ajax调接口，将返回过来的数据填充至对应的文本域中(对号入座)",
+  "description": "该方法主要用来获取url中的参数，方法最终返回object类型",
   "homepage": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/getRequest",
   "author": "谭生虎",
   "maintainers": [
