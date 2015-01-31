@@ -12,14 +12,14 @@
 
 
 ```javascript
-seajs.use(['$','cookie'], function($, cookie) {
+seajs.use('cookie', function( Cookie ) {
 	
 	
-	cookie.setCookie(key, value, expires); // 前两个必选参，第三个可选参number类型(注：以过期天数为单位)
+	Cookie.setCookie(key, value, expires); // 前两个必选参，第三个可选参number类型(注：以过期天数为单位)
 	
-	cookie.getCookie( key );
+	Cookie.getCookie( key );
 	
-	cookie.delCookie( key );
+	Cookie.delCookie( key );
 	
 });
 ```
