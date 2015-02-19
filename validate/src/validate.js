@@ -47,7 +47,7 @@ define(function(require, exports, module){
 				curRules = param.curRules;
 			
 			if ( typeof this.rules[ rls ] === 'function' ){
-				var result = this.rules[ rls ].apply( win, [ele] );
+				var result = this.rules[ rls ].apply( window, [ele] );
 				// 把验证结果 抛给showmsg方法去处理,  下次抽时间把msg这块的信息尽量配置在js中
 				this.showmsg( {result:result, ele:ele, curRules:curRules, rls:rls} );
 				return result;

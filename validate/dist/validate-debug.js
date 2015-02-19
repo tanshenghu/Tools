@@ -41,7 +41,7 @@ define("tanshenghu/validate/1.0.0/validate-debug", [ "$-debug", "./validate.exte
         exeRules: function(param) {
             var rls = param.rls, ele = param.ele, curRules = param.curRules;
             if (typeof this.rules[rls] === "function") {
-                var result = this.rules[rls].apply(win, [ ele ]);
+                var result = this.rules[rls].apply(window, [ ele ]);
                 // 把验证结果 抛给showmsg方法去处理,  下次抽时间把msg这块的信息尽量配置在js中
                 this.showmsg({
                     result: result,
