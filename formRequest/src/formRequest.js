@@ -1,6 +1,6 @@
 define(function(require, exports, module){
 	
-	var $ = jQuery = require( '$' );
+	var jQuery = require( '$' ), $ = jQuery;
 	
 	var formRequest = function( param ){
 		

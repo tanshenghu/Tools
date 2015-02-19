@@ -1,5 +1,5 @@
 define("tanshenghu/formFill/1.0.0/formFill-debug", [ "$-debug" ], function(require, exports, module) {
-    var $ = jQuery = require("$-debug");
+    var jQuery = require("$-debug"), $ = jQuery;
     var formFill = {
         init: function(o) {
             this.url = o.url;

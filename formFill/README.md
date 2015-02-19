@@ -30,7 +30,7 @@
 		<input type="radio" name="sex" value="女">女
 	</div>
 	<div>
-		<label>您是否喜欢国术</label>
+		<label>您是否喜欢国术：</label>
 		<select name="kung_fu">
 			<option value="yes">yes</option>
 			<option value="no">no</option>

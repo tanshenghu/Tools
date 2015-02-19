@@ -1,5 +1,5 @@
 define("tanshenghu/formRequest/1.0.0/formRequest-debug", [ "$-debug" ], function(require, exports, module) {
-    var $ = jQuery = require("$-debug");
+    var jQuery = require("$-debug"), $ = jQuery;
     var formRequest = function(param) {
         if (!(param instanceof Object)) {
             return "parameter " + param + " error";
