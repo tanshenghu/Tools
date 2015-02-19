@@ -7,7 +7,6 @@ define(function(require, exports, module){
 		// 验证 初始化，最终返回布尔值 true/false
 		init: function( form ){
 			this.form = $( form );
-			this.rules.This = this.form;
 			this.blur();
 			return this.verify() && this.form.find('.formTip').length===0;
 		},
@@ -48,7 +47,7 @@ define(function(require, exports, module){
 				curRules = param.curRules;
 			
 			if ( typeof this.rules[ rls ] === 'function' ){
-				var result = this.rules[ rls ].apply( window, [ele] );
+				var result = this.rules[ rls ].apply( this.form, [ele] );
 				// 把验证结果 抛给showmsg方法去处理,  下次抽时间把msg这块的信息尽量配置在js中
 				this.showmsg( {result:result, ele:ele, curRules:curRules, rls:rls} );
 				return result;
@@ -61,11 +60,12 @@ define(function(require, exports, module){
 		rules: {
 			'required': function( ele ){
 				
-				var ele = $( ele ), type = ele.attr('type').toLowerCase(), This = this.This, lenVal;
+				var ele = $( ele ), type = ele.attr('type') && ele.attr('type').toLowerCase(), form = this, lenVal;
+				
 				if( type==='radio' || type==='checkbox' ){
 					
 					var name = ele.attr('name');
-					var checked = This.form.find( '[name="'+name+'"]:checked' );
+					var checked = form.find( '[name="'+name+'"]:checked' );
 					lenVal = checked.length===0 ? false : true;
 					
 				}else{
@@ -158,6 +158,7 @@ define(function(require, exports, module){
 		
 	validate.rules = $.extend( validate.rules, rules );
 	validate.verifymsg = $.extend( validate.verifymsg, verifymsg );
+	
 	
 	module.exports = validate;
 	
