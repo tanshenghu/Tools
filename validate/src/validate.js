@@ -141,8 +141,8 @@ define(function(require, exports, module){
 		
 	};
 	
-	var rules     = require( './fnTsh.validate.extend' ),
-		verifymsg = require( './fnTsh.validate.messages' );
+	var rules     = require( './validate.extend' ),
+		verifymsg = require( './validate.messages' );
 		
 	validate.rules = $.extend( validate.rules, rules );
 	validate.verifymsg = $.extend( validate.verifymsg, verifymsg );

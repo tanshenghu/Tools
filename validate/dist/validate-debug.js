@@ -1,4 +1,4 @@
-define("tanshenghu/validate/1.0.0/validate-debug", [ "$-debug", "./fnTsh.validate.extend-debug", "./fnTsh.validate.messages-debug" ], function(require, exports, module) {
+define("tanshenghu/validate/1.0.0/validate-debug", [ "$-debug", "./validate.extend-debug", "./validate.messages-debug" ], function(require, exports, module) {
     var jQuery = require("$-debug"), $ = jQuery, validate = {
         // 验证 初始化，最终返回布尔值 true/false
         init: function(form) {
@@ -125,13 +125,13 @@ define("tanshenghu/validate/1.0.0/validate-debug", [ "$-debug", "./fnTsh.validat
             this.blurIdx++;
         }
     };
-    var rules = require("./fnTsh.validate.extend-debug"), verifymsg = require("./fnTsh.validate.messages-debug");
+    var rules = require("./validate.extend-debug"), verifymsg = require("./validate.messages-debug");
     validate.rules = $.extend(validate.rules, rules);
     validate.verifymsg = $.extend(validate.verifymsg, verifymsg);
     module.exports = validate;
 });
 
-define("tanshenghu/validate/1.0.0/fnTsh.validate.extend-debug", [], function(require, exports, module) {
+define("tanshenghu/validate/1.0.0/validate.extend-debug", [], function(require, exports, module) {
     var validate_rules = {};
     // 小数
     validate_rules.decimals = function(ele) {
@@ -193,7 +193,7 @@ define("tanshenghu/validate/1.0.0/fnTsh.validate.extend-debug", [], function(req
     return validate_rules;
 });
 
-define("tanshenghu/validate/1.0.0/fnTsh.validate.messages-debug", [], function(require, exports, module) {
+define("tanshenghu/validate/1.0.0/validate.messages-debug", [], function(require, exports, module) {
     var verifymsg = {};
     verifymsg.phone = "请输入正确的手机号码";
     verifymsg.tel = "请输入正确的电话号码";
