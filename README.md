@@ -15,7 +15,7 @@
 ***
 
 3.[formRequest](formRequest/)
-> 用于ajax表单提交时捕获取表单下所有`需要`获取的字段值组成json串，传给后端。
+> 用于ajax表单提交时捕获取表单下所有`需要`获取的字段值并组成json对象，以参数传给后端。
 ***
 
 4.[getRequest](getRequest/)
