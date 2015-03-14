@@ -6,7 +6,7 @@
 
 <br>
 
-(https://img.shields.io/npm/v/spm-build.svg?style=flat)
+![日历-calendar](/tanshenghu/myweb/raw/widget/1.0.0/calendar/examples/eg.jpg)
 
 ## javascript
 
