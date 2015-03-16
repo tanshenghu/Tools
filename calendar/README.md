@@ -12,9 +12,9 @@
 
 
 ```javascript
-seajs.use('calendar', function( calendar ){
+seajs.use('calendar', function( Calendar ){
 		
-		var tds = calendar.init( 'popdata' );
+		var tds = Calendar.init( 'popdata' );
 		
 	});
 ```
@@ -107,8 +107,11 @@ seajs.use('calendar', function( calendar ){
 	<script>
 	seajs.use('Calendar', function( Calendar ){
 		
-		var tds = Calendar.init( 'popdata' );
-		console.log( tds );
+		var Tds = Calendar.init( 'popdata', function(popBox, titleBox, table){
+			var tds = this;
+		});
+		// 第一个参数为元素节点的id必选，第二个参数为function可选，可以经过第二个参数function定义一些自己需要处理的事务
+		//console.log( Tds );
 		
 	});
 	</script>
