@@ -1,0 +1,30 @@
+{
+  "family": "tanshenghu",
+  "name": "gridSort",
+  "version": "1.0.0",
+  "description": "前端列表排序，主要用于分页列表等排序功能，要注意需要排序的字段要是数字、日期、金额(可带千分位)，非数字前端不好去排。其实排序功能一般后端来做的，无聊时周末在家写了个例子...",
+  "homepage": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/gridSort",
+  "author": "谭生虎",
+  "maintainers": [
+    "谭生虎 <tanshenghu@163.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/gridSort.git"
+  },
+  "bugs": {
+    "url": "http://git.oschina.net/tanshenghu/myweb/tree/widget/1.0.0/gridSort/issues"
+  },
+  "keywords": [],
+  "licenses": "tsh_worker",
+  "spm": {
+    "output": [
+      "gridSort.js"
+    ],
+    "alias": {
+      "$" : "$"
+    },
+    "devAlias": {},
+    "engines": {}
+  }
+}
