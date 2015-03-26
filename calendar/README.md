@@ -6,7 +6,7 @@
 
 <br>
 
-![日历-calendar](https://github.com/tanshenghu/Tools/edit/widget/1.0.0/calendar/examples/eg.jpg)
+![日历-calendar](https://raw.githubusercontent.com/tanshenghu/Tools/widget/1.0.0/calendar/examples/eg.jpg)
 
 ## javascript
 
